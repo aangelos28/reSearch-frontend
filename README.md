@@ -1,6 +1,6 @@
-# ReSearchFrontend
+# reSearch Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.0.
+The frontend of the reSearch scholarly document search platform.
 
 ## Development server
 
