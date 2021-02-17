@@ -1,0 +1,36 @@
+.search-bar {
+  @apply border-2 shadow-xl px-10 outline-none transition-all;
+  height: 80px;
+  width: 750px;
+  font-size: 28px;
+  border-radius: 40px;
+}
+
+.search-bar::placeholder {
+  @apply ml-3 text-center;
+  font-size: 28px;
+}
+
+.search-bar:focus {
+  @apply border-green-500 md:w-full;
+  height: 100px;
+}
+.search-bar:focus::placeholder {
+  @apply text-left;
+}
+
+@screen md {
+  .search-bar {
+    width: 100%;
+    font-size: 20px;
+  }
+  .search-bar:focus {
+    height: 80px;
+  }
+  h1 {
+    font-size: 4em;
+  }
+  .search-bar::placeholder {
+    font-size: 20px;
+  }
+}
