@@ -1,15 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-search-main',
   templateUrl: './search-main.component.html',
-  styleUrls: ['./search-main.component.css']
+  styleUrls: ['./search-main.component.css'],
 })
 export class SearchMainComponent implements OnInit {
 
-  constructor() { }
+  public searchForm: FormGroup;
 
-  ngOnInit(): void {
+  constructor() {
   }
 
+  ngOnInit(): void {
+    this.searchForm = new FormGroup({
+      searchQuery: new FormControl('', [
+        Validators.required
+      ])
+    });
+  }
+
+  public performSearch(): void {
+  }
+
+  /**
+   * Returns true if the search input is empty.
+   */
+  public searchQueryEmpty(): boolean {
+    return this.searchForm.get('searchQuery').value === '';
+  }
 }

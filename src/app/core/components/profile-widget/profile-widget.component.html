@@ -1,0 +1,18 @@
+<div class="profile-widget">
+  <button class="text-2xl text-white rounded-full bg-red-400 hover:bg-red-500 transition-colors shadow h-14 w-14 flex items-center justify-center" (click)="toggleProfileMenu()">
+    AA
+  </button>
+  <div class="absolute right-0 border w-40 shadow-lg mt-2 text-md" [class.invisible]="profileMenuHidden">
+    <div class="m-3 flex flex-col space-y-2">
+      <span>
+        <i class="fas fa-user"></i>
+        <a href="#" class="ml-1">My Account</a>
+      </span>
+      <span>
+        <i class="fas fa-star"></i>
+        <a href="#" class="ml-1">Saved Articles</a>
+      </span>
+    </div>
+    <button class="w-full self-end bg-red-500 hover:bg-red-700 mt-5 text-lg py-1 text-white">Logout</button>
+  </div>
+</div>

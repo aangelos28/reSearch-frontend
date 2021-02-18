@@ -7,13 +7,16 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatRippleModule} from '@angular/material/core';
 import {MatIconModule} from '@angular/material/icon';
+import {ProfileWidgetComponent} from './components/profile-widget/profile-widget.component';
 
 @NgModule({
   declarations: [
-    SearchMainComponent
+    SearchMainComponent,
+    ProfileWidgetComponent
   ],
   exports: [
-    SearchMainComponent
+    SearchMainComponent,
+    ProfileWidgetComponent
   ],
   imports: [
     CommonModule,
