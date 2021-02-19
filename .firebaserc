@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "research-a123b": {
+      "hosting": {
+        "reSearch-frontend": [
+          "research-a123b"
+        ]
+      }
+    }
+  }
+}

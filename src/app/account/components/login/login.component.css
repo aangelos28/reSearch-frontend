@@ -1,0 +1,13 @@
+.login-container {
+  max-width: 500px;
+  min-height: 500px;
+}
+
+.login-form {
+  @apply flex flex-col h-auto space-y-4 px-20 sm:px-10;
+}
+
+.submit-button {
+  @apply h-14;
+  font-size: 20px;
+}

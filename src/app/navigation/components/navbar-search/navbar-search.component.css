@@ -1,0 +1,17 @@
+.search-box {
+  @apply flex rounded-full border shadow-sm text-lg mx-4 sm:mx-2 px-8 sm:px-4 flex-grow min-w-0 max-w-2xl focus-within:border-green-500 transition-colors;
+}
+
+@screen sm {
+  .logo {
+    @apply text-sm;
+  }
+
+  .search-box {
+    font-size: 0.7rem;
+  }
+}
+
+:host {
+  @apply flex flex-grow justify-center;
+}
