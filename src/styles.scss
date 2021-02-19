@@ -1,0 +1,178 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "~@angular/material/theming";
+
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$md-reSearch-primary: (
+  50 : #e2f7f0,
+  100 : #b7ead9,
+  200 : #88dcc0,
+  300 : #58cea7,
+  400 : #34c494,
+  500 : #10b981,
+  600 : #0eb279,
+  700 : #0caa6e,
+  800 : #09a264,
+  900 : #059351,
+  A100 : #bfffde,
+  A200 : #8cffc3,
+  A400 : #59ffa9,
+  A700 : #40ff9c,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$md-reSearch-accent: (
+  50 : #e5ecfd,
+  100 : #bed0f9,
+  200 : #92b1f5,
+  300 : #6692f1,
+  400 : #467aee,
+  500 : #2563eb,
+  600 : #215be9,
+  700 : #1b51e5,
+  800 : #1647e2,
+  900 : #0d35dd,
+  A100 : #ffffff,
+  A200 : #d5dcff,
+  A400 : #a2b1ff,
+  A700 : #899bff,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #ffffff,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$md-reSearch-warn: (
+  50 : #ffebeb,
+  100 : #ffcece,
+  200 : #ffadad,
+  300 : #ff8c8c,
+  400 : #ff7474,
+  500 : #ff5b5b,
+  600 : #ff5353,
+  700 : #ff4949,
+  800 : #ff4040,
+  900 : #ff2f2f,
+  A100 : #ffffff,
+  A200 : #ffffff,
+  A400 : #ffdada,
+  A700 : #ffc1c1,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+
+$reSearch-frontend-primary: mat-palette($md-reSearch-primary);
+$reSearch-frontend-accent: mat-palette($md-reSearch-accent);
+
+// The warn palette is optional (defaults to red).
+$reSearch-frontend-warn: mat-palette($md-reSearch-warn);
+
+// Create the theme object (a Sass map containing all of the palettes).
+
+$theming-material-components-theme: mat-light-theme(
+    $reSearch-frontend-primary,
+    $reSearch-frontend-accent,
+    $reSearch-frontend-warn
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+
+@include angular-material-theme($theming-material-components-theme);
+
+html, body {
+  height: 100vh;
+}
+
+body {
+  font-family: Lato, sans-serif;
+  color: black;
+}
+
+.body-container {
+  @apply mx-5 mt-20 h-screen;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Lato', sans-serif;
+  font-size: initial;
+  transition: font-size 0.5s ease;
+}
+
+h1 {
+  font-size: 5em;
+}
+
+h2 {
+  font-size: 4em;
+}
+
+h3 {
+  font-size: 1.3em;
+}
+
+h4 {
+  font-size: 1em;
+}
+
+h5 {
+  font-size: 0.8em;
+}
+
+h6 {
+  font-size: 0.7em;
+}

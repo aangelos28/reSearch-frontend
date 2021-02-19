@@ -1,4 +1,8 @@
 .search-container {
+  top: 20%;
+}
+
+.search-box {
   @apply border-2 shadow-xl px-8 sm:px-4 outline-none transition-all;
   height: 80px;
   width: 750px;
@@ -6,17 +10,17 @@
   border-radius: 40px;
 }
 
-.search-container:focus-within {
+.search-box:focus-within {
   @apply border-green-500 md:w-full;
   height: 90px;
 }
 
 @screen md {
-  .search-container {
+  .search-box {
     width: 100%;
     font-size: 20px;
   }
-  .search-container:focus-within {
+  .search-box:focus-within {
     height: 80px;
   }
   h1 {
