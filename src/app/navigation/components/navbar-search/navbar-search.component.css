@@ -1,5 +1,5 @@
 .search-box {
-  @apply flex rounded-full border shadow-sm text-lg mx-4 sm:mx-2 px-8 sm:px-4 flex-grow min-w-0 max-w-2xl focus-within:border-green-500 transition-colors;
+  @apply flex rounded-full border shadow-sm mx-4 sm:mx-2 px-8 py-2 sm:px-4 sm:py-0 flex-grow min-w-0 max-w-2xl focus-within:border-green-500 transition-colors;
 }
 
 @screen sm {

@@ -1,0 +1,18 @@
+<div class="body-container">
+  <div class="relative email-verification-container mx-auto flex flex-col text-center h-auto py-10 md:w-full text-gray-300 border shadow-md rounded-lg">
+    <i class="fas fa-envelope text-green-500 text-6xl"></i>
+    <h3 class="text-3xl text-green-500 mb-5">
+      Please verify your email
+    </h3>
+    <div class="text-black">
+      <h3>A confirmation link has been sent to <b>{{this.email | async}}</b>.<br> Once you have verified your email you will be able to log in.</h3>
+      <br>
+      <h4>If you have not received an email please click the button below to resend it:</h4>
+      <br>
+      <button mat-raised-button color="primary" id="resend-email-button" (click)="resendConfirmationEmail()">Resend Confirmation</button>
+      <button mat-button color="primary" id="change-email-button" (click)="navigateToChangeEmail()">Change Email</button>
+      <hr class="my-5">
+      <button mat-stroked-button color="primary" (click)="navigateToLogin()">Back to Login</button>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 .login-container {
+  @apply pb-10;
   max-width: 500px;
   min-height: 500px;
 }
@@ -10,4 +11,9 @@
 .submit-button {
   @apply h-14;
   font-size: 20px;
+  color: white;
+}
+
+.login-form-field {
+  color: black;
 }

@@ -1,4 +1,6 @@
 import {Component, ElementRef, HostListener, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {AuthService} from '../../../account/services/auth/auth.service';
 
 @Component({
   selector: 'app-profile-widget',
@@ -9,7 +11,7 @@ export class ProfileWidgetComponent implements OnInit {
 
   public profileMenuHidden = true;
 
-  constructor(private elementRef: ElementRef) {
+  constructor(private elementRef: ElementRef, private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -32,5 +34,11 @@ export class ProfileWidgetComponent implements OnInit {
     if (!this.elementRef.nativeElement.contains(event.target) && !this.profileMenuHidden) {
       this.toggleProfileMenu();
     }
+  }
+
+  public logout(): void {
+    this.authService.logoutFirebase().then(() =>
+      window.location.reload()
+    );
   }
 }
