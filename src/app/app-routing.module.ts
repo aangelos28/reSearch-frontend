@@ -5,6 +5,10 @@ import {LoginComponent} from './account/components/login/login.component';
 
 const routes: Routes = [
   {
+    path: 'search',
+    component: SearchMainComponent
+  },
+  {
     path: 'login',
     component: LoginComponent
   },

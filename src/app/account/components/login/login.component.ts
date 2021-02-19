@@ -1,6 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import {MatDialog} from '@angular/material/dialog';
+import {InfoDialogComponent} from '../../../shared/components/info-dialog/info-dialog.component';
+import {AuthService} from '../../services/auth/auth.service';
+import {Router} from '@angular/router';
+import {RedirectDataService} from '../../../shared/services/redirect-data/redirect-data.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {AccountService} from '../../services/account/account.service';
 
 export class CustomErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -27,7 +34,9 @@ export class LoginComponent implements OnInit {
     return (password !== null && confirmPassword !== null && password === confirmPassword) ? null : {passwordMismatch: true};
   }
 
-  constructor() { }
+  constructor(public auth: AuthService, private router: Router, private snackBar: MatSnackBar, public dialog: MatDialog,
+              private accountService: AccountService, private redirectDataService: RedirectDataService) {
+  }
 
   ngOnInit(): void {
     this.errorMatcher = new CustomErrorStateMatcher();
@@ -77,10 +86,56 @@ export class LoginComponent implements OnInit {
   }
 
   public loginEmailPassword(): void {
+    const email: string = this.emailLogin.value;
+    const password: string = this.passwordLogin.value;
 
+    this.auth.loginFirebaseEmailPassword(email, password).then(() => {
+      this.auth.firebaseAuth.currentUser.then(user => {
+        if (user.emailVerified) {
+          this.redirectDataService.data.checkCreateUserBackend = true;
+          this.redirectDataService.persistToLocalStorage();
+
+          this.router.navigate(['search']);
+        } else {
+          this.router.navigate(['verify-email']);
+        }
+      });
+    }).catch(err =>
+      this.dialog.open(InfoDialogComponent, {
+        data: {
+          title: 'Error',
+          text: 'Invalid login credentials. Either your email or password are wrong.'
+        }
+      })
+    );
+  }
+
+  public loginGoogle(): void {
+    this.redirectDataService.data.checkCreateUserBackend = true;
+    this.redirectDataService.persistToLocalStorage();
+
+    this.auth.loginFirebaseGoogle().then(() =>
+      this.router.navigate(['search'])
+    );
   }
 
   public register(): void {
+    const email = this.emailSignup.value;
+    const password = this.passwordSignup.value;
 
+    this.auth.createAccount(email, password).then(() =>
+      this.auth.firebaseAuth.currentUser.then(user => {
+        user.sendEmailVerification().then(() =>
+          this.router.navigate(['verify-email'])
+        );
+      })
+    ).catch(err =>
+      this.dialog.open(InfoDialogComponent, {
+        data: {
+          title: 'Error',
+          text: `Failed to create account.\n${err}`
+        }
+      })
+    );
   }
 }
