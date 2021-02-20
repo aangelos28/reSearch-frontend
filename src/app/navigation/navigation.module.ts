@@ -4,6 +4,7 @@ import {NavbarComponent} from './components/navbar/navbar.component';
 import {ProfileWidgetComponent} from './components/profile-widget/profile-widget.component';
 import {NavbarSearchComponent} from './components/navbar-search/navbar-search.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -16,10 +17,11 @@ import {ReactiveFormsModule} from '@angular/forms';
     ProfileWidgetComponent,
     NavbarSearchComponent
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        RouterModule
+    ]
 })
 export class NavigationModule {
 }

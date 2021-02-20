@@ -8,6 +8,8 @@ import {AccountModule} from './account/account.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularFireModule} from '@angular/fire';
 import {firebaseEnvironment} from '../environments/firebase-env';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {NavigationModule} from './navigation/navigation.module';
 
 @NgModule({
   declarations: [
@@ -20,9 +22,10 @@ import {firebaseEnvironment} from '../environments/firebase-env';
     HttpClientModule,
     AppRoutingModule,
     CoreModule,
-    AccountModule
+    AccountModule,
+    NavigationModule
   ],
-  providers: [HttpClientModule],
+  providers: [HttpClientModule, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

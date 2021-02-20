@@ -1,0 +1,12 @@
+.email-verification-container {
+  top: 10%;
+  max-width: 700px;
+}
+
+#resend-email-button {
+  color: white;
+}
+
+#change-email-button {
+  margin-left: 20px;
+}
