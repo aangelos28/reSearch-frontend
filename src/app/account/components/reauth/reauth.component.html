@@ -1,0 +1,22 @@
+<div class="body-container">
+  <div class="relative reauth-container mx-auto text-center md:w-full text-gray-300 border shadow-md rounded-lg">
+    <i class="fas fa-lock text-green-500 text-6xl mb-5"></i>
+    <h2 class="text-2xl text-green-500 mb-5">
+      Please verify your password
+    </h2>
+    <form class="reauth-form" [formGroup]="reauthForm" (ngSubmit)="reauthEmailPassword()">
+      <mat-form-field class="reauth-form-field" style="margin-top: 10px;">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" class="login-form-input">
+        <mat-error *ngIf="password.hasError('minlength') && !password.hasError('required')">
+          Password must be at least 8 characters.
+        </mat-error>
+        <mat-error *ngIf="password.hasError('required')">
+          Password is <strong>required</strong>.
+        </mat-error>
+      </mat-form-field>
+      <br><br>
+      <button mat-raised-button color="accent" class="submit-button" [disabled]="!reauthForm.valid">Submit</button>
+    </form>
+  </div>
+</div>

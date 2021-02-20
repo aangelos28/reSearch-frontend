@@ -7,7 +7,7 @@
     <mat-tab-group mat-align-tabs="center" dynamicHeight>
       <mat-tab label="Login">
         <form class="login-form" [formGroup]="loginForm" (ngSubmit)="loginEmailPassword()">
-          <mat-form-field class="login-form-field" style="margin-top: 30px;">
+          <mat-form-field class="login-form-field mt-5">
             <mat-label>Email</mat-label>
             <input matInput form formControlName="email" class="login-form-input">
             <mat-error *ngIf="emailLogin.hasError('email') && !emailLogin.hasError('required')">
@@ -17,7 +17,7 @@
               Email is <strong>required</strong>.
             </mat-error>
           </mat-form-field>
-          <mat-form-field class="login-form-field" style="margin-top: 10px;">
+          <mat-form-field class="login-form-field">
             <mat-label>Password</mat-label>
             <input matInput type="password" formControlName="password" class="login-form-input">
             <mat-error *ngIf="passwordLogin.hasError('minlength') && !passwordLogin.hasError('required')">
@@ -27,34 +27,41 @@
               Password is <strong>required</strong>.
             </mat-error>
           </mat-form-field>
-          <a class="reset-password-link text-right text-green-700">Forgot password</a>
+          <a class="reset-password-link text-right text-green-700 hover:underline" routerLink="/reset-password">Forgot password</a>
           <br><br>
           <button mat-raised-button color="accent" class="submit-button" [disabled]="!loginForm.valid">Login</button>
         </form>
       </mat-tab>
       <mat-tab label="Register">
         <form class="login-form" [formGroup]="registerForm" (ngSubmit)="register()">
-          <mat-form-field class="login-form-field" style="margin-top: 30px;">
+          <mat-form-field class="login-form-field mt-5">
             <mat-label>Email</mat-label>
             <input matInput form formControlName="email" class="login-form-input">
-            <mat-error *ngIf="emailSignup.hasError('email') && !emailSignup.hasError('required')">
+            <mat-error *ngIf="emailRegister.hasError('email') && !emailRegister.hasError('required')">
               Please enter a valid email address.
             </mat-error>
-            <mat-error *ngIf="emailSignup.hasError('required')">
+            <mat-error *ngIf="emailRegister.hasError('required')">
               Email is <strong>required</strong>.
             </mat-error>
           </mat-form-field>
-          <mat-form-field class="login-form-field" style="margin-top: 10px;">
+          <mat-form-field class="login-form-field mt-2">
+            <mat-label>Confirm Email</mat-label>
+            <input matInput form formControlName="confirmEmail" class="login-form-input" [errorStateMatcher]="errorMatcher">
+            <mat-error *ngIf="registerForm.hasError('emailMismatch')">
+              Please enter the same email.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="login-form-field mt-2">
             <mat-label>Password</mat-label>
             <input matInput type="password" formControlName="password" class="login-form-input">
-            <mat-error *ngIf="passwordSignup.hasError('minlength') && !passwordSignup.hasError('required')">
+            <mat-error *ngIf="passwordRegister.hasError('minlength') && !passwordRegister.hasError('required')">
               Password must be at least 8 characters.
             </mat-error>
-            <mat-error *ngIf="passwordSignup.hasError('required')">
+            <mat-error *ngIf="passwordRegister.hasError('required')">
               Password is <strong>required</strong>.
             </mat-error>
           </mat-form-field>
-          <mat-form-field class="login-form-field" style="margin-top: 10px;">
+          <mat-form-field class="login-form-field mt-2">
             <mat-label>Confirm Password</mat-label>
             <input matInput type="password" formControlName="confirmPassword" class="login-form-input" [errorStateMatcher]="errorMatcher">
             <mat-error *ngIf="registerForm.hasError('passwordMismatch')">

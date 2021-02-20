@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth/auth.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
@@ -11,26 +11,20 @@ import {InfoDialogComponent} from '../../../shared/components/info-dialog/info-d
   templateUrl: './email-verification.component.html',
   styleUrls: ['./email-verification.component.css']
 })
-export class EmailVerificationComponent implements OnInit, AfterViewInit {
+export class EmailVerificationComponent implements OnInit {
 
   public email: Promise<string> = this.accountService.getUserEmailAsync();
-
-  // public email = 'temp';
 
   constructor(private accountService: AccountService, private authService: AuthService, private router: Router,
               private snackBar: MatSnackBar, private dialog: MatDialog) {
   }
 
   public ngOnInit(): void {
-    this.email.then(verified => {
+    this.accountService.getEmailVerifiedAsync().then(verified => {
       if (verified) {
         this.router.navigate(['search']);
       }
     });
-  }
-
-  public ngAfterViewInit(): void {
-    this.accountService.user.sendEmailVerification();
   }
 
   public resendConfirmationEmail(): void {
@@ -43,18 +37,6 @@ export class EmailVerificationComponent implements OnInit, AfterViewInit {
       })
     ).catch(err =>
       this.dialog.open(InfoDialogComponent, {data: {title: 'Error', text: `Failed to resend confirmation email.\n${err}`}})
-    );
-  }
-
-  public navigateToChangeEmail(): void {
-    this.router.navigate(['change-email']);
-  }
-
-  public navigateToLogin(): void {
-    this.authService.logoutFirebase().then(() =>
-      this.router.navigate(['login']).then(() =>
-        window.location.reload()
-      )
     );
   }
 }

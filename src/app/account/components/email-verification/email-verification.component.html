@@ -10,9 +10,8 @@
       <h4>If you have not received an email please click the button below to resend it:</h4>
       <br>
       <button mat-raised-button color="primary" id="resend-email-button" (click)="resendConfirmationEmail()">Resend Confirmation</button>
-      <button mat-button color="primary" id="change-email-button" (click)="navigateToChangeEmail()">Change Email</button>
       <hr class="my-5">
-      <button mat-stroked-button color="primary" (click)="navigateToLogin()">Back to Login</button>
+      <button mat-stroked-button color="primary" routerLink="/login">Back to Login</button>
     </div>
   </div>
 </div>

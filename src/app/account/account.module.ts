@@ -9,15 +9,22 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatButtonModule} from '@angular/material/button';
 import {EmailVerificationComponent} from './components/email-verification/email-verification.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {ReauthComponent} from './components/reauth/reauth.component';
+import {ResetPasswordComponent} from './components/reset-password/reset-password.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    EmailVerificationComponent
+    EmailVerificationComponent,
+    ReauthComponent,
+    ResetPasswordComponent
   ],
   exports: [
     LoginComponent,
-    EmailVerificationComponent
+    EmailVerificationComponent,
+    ReauthComponent,
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +35,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatSnackBarModule,
     MatTabsModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    RouterModule
   ]
 })
 export class AccountModule {

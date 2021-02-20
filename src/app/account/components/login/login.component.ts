@@ -14,7 +14,7 @@ export class CustomErrorStateMatcher implements ErrorStateMatcher {
     const invalidCtrl = !!(control && control.touched && control.invalid && control.parent.dirty);
     const invalidParent = !!(control && control.touched && control.parent && control.parent.invalid && control.parent.dirty);
 
-    return (invalidCtrl || invalidParent);
+    return control.touched && control.parent.errors && ( invalidCtrl || invalidParent );
   }
 }
 
@@ -32,6 +32,12 @@ export class LoginComponent implements OnInit {
     const password = fg.get('password').value;
     const confirmPassword = fg.get('confirmPassword').value;
     return (password !== null && confirmPassword !== null && password === confirmPassword) ? null : {passwordMismatch: true};
+  }
+
+  static emailConfirmValidation(fg: FormGroup): ValidationErrors | null {
+    const email = fg.get('email').value;
+    const confirmEmail = fg.get('confirmEmail').value;
+    return (email !== null && confirmEmail !== null && email === confirmEmail) ? null : {emailMismatch: true};
   }
 
   constructor(public auth: AuthService, private router: Router, private snackBar: MatSnackBar, public dialog: MatDialog,
@@ -57,12 +63,13 @@ export class LoginComponent implements OnInit {
         Validators.required,
         Validators.email
       ]),
+      confirmEmail: new FormControl(''),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8)
       ]),
       confirmPassword: new FormControl('')
-    }, {validators: LoginComponent.passwordConfirmValidation});
+    }, {validators: [LoginComponent.passwordConfirmValidation, LoginComponent.emailConfirmValidation]});
   }
 
   get emailLogin(): AbstractControl {
@@ -73,15 +80,19 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
-  get emailSignup(): AbstractControl {
+  get emailRegister(): AbstractControl {
     return this.registerForm.get('email');
   }
 
-  get passwordSignup(): AbstractControl {
+  get confirmEmailRegister(): AbstractControl {
+    return this.registerForm.get('confirmEmail');
+  }
+
+  get passwordRegister(): AbstractControl {
     return this.registerForm.get('password');
   }
 
-  get confirmPasswordSignup(): AbstractControl {
+  get confirmPasswordRegister(): AbstractControl {
     return this.registerForm.get('confirmPassword');
   }
 
@@ -120,8 +131,8 @@ export class LoginComponent implements OnInit {
   }
 
   public register(): void {
-    const email = this.emailSignup.value;
-    const password = this.passwordSignup.value;
+    const email = this.emailRegister.value;
+    const password = this.passwordRegister.value;
 
     this.auth.createAccount(email, password).then(() =>
       this.auth.firebaseAuth.currentUser.then(user => {
