@@ -25,27 +25,19 @@ export class AccountService {
   }
 
   public getUserEmailAsync(): Promise<string> {
-    return new Promise(resolve => {
-      resolve(this.user.email);
-    });
+    return Promise.resolve(this.user.email);
   }
 
   public getEmailVerifiedAsync(): Promise<boolean> {
-    return new Promise(resolve => {
-      resolve(this.user.emailVerified);
-    });
+    return Promise.resolve(this.user.emailVerified);
   }
 
   public getIdTokenStringAsync(): Promise<string> {
-    return new Promise(resolve => {
-      resolve(this.user.getIdToken());
-    });
+    return Promise.resolve(this.user.getIdToken());
   }
 
   public getIdTokenAsync(): Promise<auth.IdTokenResult> {
-    return new Promise(resolve => {
-      resolve(this.user.getIdTokenResult());
-    });
+    return Promise.resolve(this.user.getIdTokenResult());
   }
 
   public sendPasswordResetEmailAsync(email: string): Promise<any> {

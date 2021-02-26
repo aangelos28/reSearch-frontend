@@ -12,6 +12,7 @@ import {environment} from '../../../../environments/environment';
 export class ApiInterceptor implements HttpInterceptor {
 
   constructor() {
+    // Empty
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {

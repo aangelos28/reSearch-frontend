@@ -11,6 +11,7 @@ export class SearchMainComponent implements OnInit {
   public searchForm: FormGroup;
 
   constructor() {
+    // TODO
   }
 
   ngOnInit(): void {
@@ -22,6 +23,7 @@ export class SearchMainComponent implements OnInit {
   }
 
   public performSearch(): void {
+    // TODO
   }
 
   /**

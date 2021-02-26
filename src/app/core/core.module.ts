@@ -8,13 +8,16 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatRippleModule} from '@angular/material/core';
 import {MatIconModule} from '@angular/material/icon';
 import {NavigationModule} from '../navigation/navigation.module';
+import {DeveloperPanelComponent} from './components/developer-panel/developer-panel.component';
 
 @NgModule({
   declarations: [
-    SearchMainComponent
+    SearchMainComponent,
+    DeveloperPanelComponent
   ],
   exports: [
-    SearchMainComponent
+    SearchMainComponent,
+    DeveloperPanelComponent
   ],
   imports: [
     CommonModule,

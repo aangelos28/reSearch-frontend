@@ -11,6 +11,7 @@ export class NavbarSearchComponent implements OnInit {
   public searchForm: FormGroup;
 
   constructor() {
+    // Empty
   }
 
   ngOnInit(): void {

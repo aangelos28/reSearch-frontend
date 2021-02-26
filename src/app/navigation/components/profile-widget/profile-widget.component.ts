@@ -1,5 +1,4 @@
 import {Component, ElementRef, HostListener, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
 import {AuthService} from '../../../account/services/auth/auth.service';
 
 @Component({
@@ -15,6 +14,7 @@ export class ProfileWidgetComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Empty
   }
 
   /**
