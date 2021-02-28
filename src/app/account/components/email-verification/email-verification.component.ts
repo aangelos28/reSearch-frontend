@@ -39,4 +39,10 @@ export class EmailVerificationComponent implements OnInit {
       this.dialog.open(InfoDialogComponent, {data: {title: 'Error', text: `Failed to resend confirmation email.\n${err}`}})
     );
   }
+
+  public backToLogin(): void {
+    this.authService.logoutFirebase().then(() => {
+      this.router.navigate(['login']);
+    });
+  }
 }

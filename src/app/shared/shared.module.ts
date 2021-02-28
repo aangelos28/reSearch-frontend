@@ -5,13 +5,16 @@ import {ApiInterceptor} from './interceptors/api/api.interceptor';
 import {InfoDialogComponent} from './components/info-dialog/info-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
+import {PulseSpinnerComponent} from './components/pulse-spinner/pulse-spinner.component';
 
 @NgModule({
   declarations: [
-    InfoDialogComponent
+    InfoDialogComponent,
+    PulseSpinnerComponent
   ],
   exports: [
-    InfoDialogComponent
+    InfoDialogComponent,
+    PulseSpinnerComponent
   ],
   imports: [
     CommonModule,

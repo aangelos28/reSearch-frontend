@@ -10,6 +10,7 @@ import {AngularFireModule} from '@angular/fire';
 import {firebaseEnvironment} from '../environments/firebase-env';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {NavigationModule} from './navigation/navigation.module';
+import {SharedModule} from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {NavigationModule} from './navigation/navigation.module';
     AppRoutingModule,
     CoreModule,
     AccountModule,
-    NavigationModule
+    NavigationModule,
+    SharedModule
   ],
   providers: [HttpClientModule, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]

@@ -1,81 +1,108 @@
 <div class="body-container">
-  <h2 class="relative text-center mb-5">
-    <span class="text-blue-600">re</span><span class="text-green-500">Search</span>
-  </h2>
 
-  <div class="relative login-container mx-auto text-center md:w-full text-gray-300 border shadow-md rounded-lg">
-    <mat-tab-group mat-align-tabs="center" dynamicHeight>
-      <mat-tab label="Login">
-        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="loginEmailPassword()">
-          <mat-form-field class="login-form-field mt-5">
-            <mat-label>Email</mat-label>
-            <input matInput form formControlName="email" class="login-form-input">
-            <mat-error *ngIf="emailLogin.hasError('email') && !emailLogin.hasError('required')">
-              Please enter a valid email address.
-            </mat-error>
-            <mat-error *ngIf="emailLogin.hasError('required')">
-              Email is <strong>required</strong>.
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field class="login-form-field">
-            <mat-label>Password</mat-label>
-            <input matInput type="password" formControlName="password" class="login-form-input">
-            <mat-error *ngIf="passwordLogin.hasError('minlength') && !passwordLogin.hasError('required')">
-              Password must be at least 8 characters.
-            </mat-error>
-            <mat-error *ngIf="passwordLogin.hasError('required')">
-              Password is <strong>required</strong>.
-            </mat-error>
-          </mat-form-field>
-          <a class="reset-password-link text-right text-green-700 hover:underline" routerLink="/reset-password">Forgot password</a>
-          <br><br>
-          <button mat-raised-button color="accent" class="submit-button" [disabled]="!loginForm.valid">Login</button>
-        </form>
-      </mat-tab>
-      <mat-tab label="Register">
-        <form class="login-form" [formGroup]="registerForm" (ngSubmit)="register()">
-          <mat-form-field class="login-form-field mt-5">
-            <mat-label>Email</mat-label>
-            <input matInput form formControlName="email" class="login-form-input">
-            <mat-error *ngIf="emailRegister.hasError('email') && !emailRegister.hasError('required')">
-              Please enter a valid email address.
-            </mat-error>
-            <mat-error *ngIf="emailRegister.hasError('required')">
-              Email is <strong>required</strong>.
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field class="login-form-field mt-2">
-            <mat-label>Confirm Email</mat-label>
-            <input matInput form formControlName="confirmEmail" class="login-form-input" [errorStateMatcher]="errorMatcher">
-            <mat-error *ngIf="registerForm.hasError('emailMismatch')">
-              Please enter the same email.
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field class="login-form-field mt-2">
-            <mat-label>Password</mat-label>
-            <input matInput type="password" formControlName="password" class="login-form-input">
-            <mat-error *ngIf="passwordRegister.hasError('minlength') && !passwordRegister.hasError('required')">
-              Password must be at least 8 characters.
-            </mat-error>
-            <mat-error *ngIf="passwordRegister.hasError('required')">
-              Password is <strong>required</strong>.
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field class="login-form-field mt-2">
-            <mat-label>Confirm Password</mat-label>
-            <input matInput type="password" formControlName="confirmPassword" class="login-form-input" [errorStateMatcher]="errorMatcher">
-            <mat-error *ngIf="registerForm.hasError('passwordMismatch')">
-              Please enter the same password.
-            </mat-error>
-          </mat-form-field>
-          <br><br>
-          <button mat-raised-button color="accent" class="submit-button" [disabled]="!registerForm.valid">Sign Up</button>
-        </form>
-      </mat-tab>
-    </mat-tab-group>
-    <div class="login-form">
-      <hr class="my-5">
-      <button mat-raised-button color="primary" class="submit-button" (click)="loginGoogle()">Login with Google</button>
+  <div *ngIf="handlingAuthentication; else loginBlock">
+    <div class="relative login-container mx-auto text-center md:w-full border shadow-md rounded-lg">
+      <app-pulse-spinner></app-pulse-spinner>
+      <h2 class="text-green-500">Authorizing</h2>
     </div>
   </div>
+  <ng-template #loginBlock>
+    <h2 class="relative text-center mb-5">
+      <span class="text-blue-600">re</span><span class="text-green-500">Search</span>
+    </h2>
+
+    <div class="relative login-container mx-auto text-center md:w-full text-gray-300 border shadow-md rounded-lg">
+      <mat-tab-group mat-align-tabs="center" dynamicHeight>
+        <mat-tab label="Login">
+          <form class="login-form" [formGroup]="loginForm" (ngSubmit)="loginEmailPassword()">
+            <mat-form-field class="login-form-field mt-5">
+              <mat-label>Email</mat-label>
+              <input matInput form formControlName="email" class="login-form-input">
+              <mat-error *ngIf="emailLogin.hasError('email') && !emailLogin.hasError('required')">
+                Please enter a valid email address.
+              </mat-error>
+              <mat-error *ngIf="emailLogin.hasError('required')">
+                Email is <strong>required</strong>.
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="login-form-field">
+              <mat-label>Password</mat-label>
+              <input matInput type="password" formControlName="password" class="login-form-input">
+              <mat-error *ngIf="passwordLogin.hasError('minlength') && !passwordLogin.hasError('required')">
+                Password must be at least 8 characters.
+              </mat-error>
+              <mat-error *ngIf="passwordLogin.hasError('required')">
+                Password is <strong>required</strong>.
+              </mat-error>
+            </mat-form-field>
+            <a class="reset-password-link text-right text-green-700 hover:underline" routerLink="/reset-password">Forgot password</a>
+            <br><br>
+            <button mat-raised-button color="accent" class="submit-button" [disabled]="!loginForm.valid">Login</button>
+          </form>
+        </mat-tab>
+        <mat-tab label="Register">
+          <form class="login-form" [formGroup]="registerForm" (ngSubmit)="register()">
+            <mat-form-field class="login-form-field mt-5">
+              <mat-label>Full Name</mat-label>
+              <input matInput form formControlName="fullName" class="login-form-input">
+              <mat-error *ngIf="fullNameRegister.hasError('required')">
+                Your name is <strong>required</strong>.
+              </mat-error>
+              <mat-error *ngIf="fullNameRegister.hasError('maxLength')">
+                The name cannot be longer than {{this.fullNameMaxLength}} characters.
+              </mat-error>
+            </mat-form-field>
+            <!-- Email -->
+            <mat-form-field class="login-form-field mt-5">
+              <mat-label>Email</mat-label>
+              <input matInput form formControlName="email" class="login-form-input">
+              <mat-error *ngIf="emailRegister.hasError('email') && !emailRegister.hasError('required')">
+                Please enter a valid email address.
+              </mat-error>
+              <mat-error *ngIf="emailRegister.hasError('required')">
+                Email is <strong>required</strong>.
+              </mat-error>
+              <mat-error *ngIf="emailRegister.hasError('maxLength')">
+                Email cannot be longer than {{this.emailMaxLength}} characters.
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="login-form-field mt-2">
+              <mat-label>Confirm Email</mat-label>
+              <input matInput form formControlName="confirmEmail" class="login-form-input" [errorStateMatcher]="errorMatcher">
+              <mat-error *ngIf="registerForm.hasError('emailMismatch')">
+                Please enter the same email.
+              </mat-error>
+            </mat-form-field>
+            <!-- Password -->
+            <mat-form-field class="login-form-field mt-2">
+              <mat-label>Password</mat-label>
+              <input matInput type="password" formControlName="password" class="login-form-input">
+              <mat-error *ngIf="passwordRegister.hasError('minlength') && !passwordRegister.hasError('required')">
+                Password must be at least {{this.passwordMinLength}} characters.
+              </mat-error>
+              <mat-error *ngIf="passwordRegister.hasError('maxLength')">
+                Password cannot be longer than {{this.passwordMaxLength}} characters.
+              </mat-error>
+              <mat-error *ngIf="passwordRegister.hasError('required')">
+                Password is <strong>required</strong>.
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="login-form-field mt-2">
+              <mat-label>Confirm Password</mat-label>
+              <input matInput type="password" formControlName="confirmPassword" class="login-form-input" [errorStateMatcher]="errorMatcher">
+              <mat-error *ngIf="registerForm.hasError('passwordMismatch')">
+                Please enter the same password.
+              </mat-error>
+            </mat-form-field>
+            <br><br>
+            <button mat-raised-button color="accent" class="submit-button" [disabled]="!registerForm.valid">Sign Up</button>
+          </form>
+        </mat-tab>
+      </mat-tab-group>
+      <div class="login-form">
+        <hr class="my-5">
+        <button mat-raised-button color="primary" class="submit-button" (click)="loginGoogle()">Login with Google</button>
+      </div>
+    </div>
+  </ng-template>
 </div>

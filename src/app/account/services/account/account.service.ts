@@ -5,6 +5,7 @@ import {BehaviorSubject, Observable, of} from 'rxjs';
 import {auth, User} from 'firebase';
 import {HttpClient} from '@angular/common/http';
 import {catchError, switchMap} from 'rxjs/operators';
+import {AccountCreationData} from '../../model/account-model';
 
 @Injectable({
   providedIn: 'root'
@@ -44,11 +45,22 @@ export class AccountService {
     return this.authService.firebaseAuth.sendPasswordResetEmail(email);
   }
 
-  public checkCreateUserBackend(): Observable<boolean> {
+  public checkUserAccountExistsBackend(): Observable<boolean> {
+    return this.httpClient.get<boolean>('/private/user/exists');
+  }
+
+  public createUserAccountBackend(accountCreationData: AccountCreationData): Observable<boolean> {
+    return this.httpClient.post('/private/user/create', accountCreationData).pipe(
+      switchMap(() => of(true)),
+      catchError(() => of(false))
+    );
+  }
+
+  public checkCreateUserBackend(accountCreationData: AccountCreationData): Observable<boolean> {
     return this.httpClient.get<boolean>('/private/user/exists').pipe(
       switchMap(accountExists => {
         if (!accountExists) {
-          return this.httpClient.post('/private/user/create', null);
+          return this.httpClient.post('/private/user/create', accountCreationData);
         } else {
           return of(true);
         }

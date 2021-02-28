@@ -8,13 +8,15 @@ import {Router} from '@angular/router';
 import {RedirectDataService} from '../../../shared/services/redirect-data/redirect-data.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AccountService} from '../../services/account/account.service';
+import {AccountCreationData} from '../../model/account-model';
+import {tap} from 'rxjs/operators';
 
 export class CustomErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const invalidCtrl = !!(control && control.touched && control.invalid && control.parent.dirty);
     const invalidParent = !!(control && control.touched && control.parent && control.parent.invalid && control.parent.dirty);
 
-    return control.touched && control.parent.errors && ( invalidCtrl || invalidParent );
+    return control.touched && control.parent.errors && (invalidCtrl || invalidParent);
   }
 }
 
@@ -27,6 +29,14 @@ export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   public registerForm: FormGroup;
   public errorMatcher: CustomErrorStateMatcher;
+
+  public emailMaxLength = 64;
+  public fullNameMaxLength = 64;
+
+  public passwordMinLength = 8;
+  public passwordMaxLength = 64;
+
+  public handlingAuthentication = false;
 
   static passwordConfirmValidation(fg: FormGroup): ValidationErrors | null {
     const password = fg.get('password').value;
@@ -44,7 +54,38 @@ export class LoginComponent implements OnInit {
               private accountService: AccountService, private redirectDataService: RedirectDataService) {
   }
 
+  private handleAuthentication(): void {
+    // Check for redirected auth
+    if (localStorage.getItem('redirectAuthentication') !== null) {
+      this.handlingAuthentication = true;
+      localStorage.removeItem('redirectAuthentication');
+      const accountCreationData: AccountCreationData = {fullName: ''};
+      this.accountService.checkCreateUserBackend(accountCreationData).subscribe(existsOrCreated => {
+        if (existsOrCreated) {
+          this.redirectDataService.reset();
+          this.router.navigate(['search']);
+        } else {
+          this.auth.logoutFirebase().then(() => {
+            this.router.navigate(['search']);
+          });
+        }
+      });
+    }
+
+    // Not redirected auth. Check for authentication
+    this.auth.firebaseAuth.currentUser.then(user => {
+      if (!user) {
+        return;
+      }
+      if (user.emailVerified === true) {
+        this.router.navigate(['search']);
+      }
+    });
+  }
+
   ngOnInit(): void {
+    this.handleAuthentication();
+
     this.errorMatcher = new CustomErrorStateMatcher();
 
     this.loginForm = new FormGroup({
@@ -59,14 +100,20 @@ export class LoginComponent implements OnInit {
     });
 
     this.registerForm = new FormGroup({
+      fullName: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(this.fullNameMaxLength)
+      ]),
       email: new FormControl('', [
         Validators.required,
-        Validators.email
+        Validators.email,
+        Validators.maxLength(this.emailMaxLength)
       ]),
       confirmEmail: new FormControl(''),
       password: new FormControl('', [
         Validators.required,
-        Validators.minLength(8)
+        Validators.minLength(this.passwordMinLength),
+        Validators.maxLength(this.passwordMaxLength)
       ]),
       confirmPassword: new FormControl('')
     }, {validators: [LoginComponent.passwordConfirmValidation, LoginComponent.emailConfirmValidation]});
@@ -78,6 +125,10 @@ export class LoginComponent implements OnInit {
 
   get passwordLogin(): AbstractControl {
     return this.loginForm.get('password');
+  }
+
+  get fullNameRegister(): AbstractControl {
+    return this.registerForm.get('fullName');
   }
 
   get emailRegister(): AbstractControl {
@@ -100,47 +151,100 @@ export class LoginComponent implements OnInit {
     const email: string = this.emailLogin.value;
     const password: string = this.passwordLogin.value;
 
+    console.log('Logging in');
+    this.handlingAuthentication = true;
     this.auth.loginFirebaseEmailPassword(email, password).then(() => {
+      console.log('Logged in');
       this.auth.firebaseAuth.currentUser.then(user => {
+        console.log('Got user');
+        // Ensure that the user has a verified email
         if (user.emailVerified) {
-          this.redirectDataService.data.checkCreateUserBackend = true;
-          this.redirectDataService.persistToLocalStorage();
+          console.log('User email is verified');
+          this.accountService.checkUserAccountExistsBackend().subscribe(accountExists => {
+            console.log('Checking account exists');
+            if (accountExists) {
+              console.log('Account exists');
+              // User account exists, we can proceed with login
+              this.router.navigate(['search']);
+            } else {
+              console.log('Account does not exist');
+              // User account does not exist in the backend. We need to create one.
+              let accountCreationData: AccountCreationData = {fullName: ''};
 
-          this.router.navigate(['search']);
+              console.log('Attempting to get data from local storage');
+              // Read registration data from local storage if it exists
+              if (localStorage.getItem('checkCreateUserBackend') !== null) {
+                console.log('Getting account creation data');
+                accountCreationData = JSON.parse(localStorage.getItem('accountCreationData'));
+              }
+
+              // Create user account in backend
+              console.log('Attempting to create account in backend');
+              this.accountService.createUserAccountBackend(accountCreationData).subscribe(accountCreated => {
+                if (accountCreated) {
+                  localStorage.removeItem('checkCreateUserBackend');
+                  localStorage.removeItem('accountCreationData');
+                  this.router.navigate(['search']);
+                } else {
+                  this.dialog.open(InfoDialogComponent, {
+                    data: {
+                      title: 'Error',
+                      text: 'Failed to create account in server. Please try again later or contact support.'
+                    }
+                  });
+                }
+              });
+            }
+          });
         } else {
+          // User does not have a verified email
           this.router.navigate(['verify-email']);
         }
       });
-    }).catch(err =>
+    }).catch(err => {
+      this.handlingAuthentication = true;
       this.dialog.open(InfoDialogComponent, {
         data: {
           title: 'Error',
           text: 'Invalid login credentials. Either your email or password are wrong.'
         }
-      })
-    );
+      });
+    });
   }
 
   public loginGoogle(): void {
-    this.redirectDataService.data.checkCreateUserBackend = true;
-    this.redirectDataService.persistToLocalStorage();
+    localStorage.setItem('redirectAuthentication', String(true));
 
-    this.auth.loginFirebaseGoogle().then(() =>
-      this.router.navigate(['search'])
-    );
+    this.auth.loginFirebaseGoogle().then(() => {
+      // Login is with redirect
+      console.log('Login with google');
+      const accountCreationData: AccountCreationData = {fullName: ''};
+      this.accountService.checkCreateUserBackend(accountCreationData).pipe(
+        tap(existsOrCreated => {
+          if (existsOrCreated) {
+            this.router.navigate(['search']);
+          }
+        })
+      );
+    });
   }
 
   public register(): void {
     const email = this.emailRegister.value;
     const password = this.passwordRegister.value;
+    const accountCreationData: AccountCreationData = {
+      fullName: this.fullNameRegister.value
+    };
+    localStorage.setItem('checkCreateUserBackend', String(true));
+    localStorage.setItem('accountCreationData', JSON.stringify(accountCreationData));
 
-    this.auth.createAccount(email, password).then(() =>
+    this.auth.createAccount(email, password).then(() => {
       this.auth.firebaseAuth.currentUser.then(user => {
         user.sendEmailVerification().then(() =>
           this.router.navigate(['verify-email'])
         );
-      })
-    ).catch(err =>
+      });
+    }).catch(err =>
       this.dialog.open(InfoDialogComponent, {
         data: {
           title: 'Error',

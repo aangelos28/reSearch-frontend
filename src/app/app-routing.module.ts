@@ -7,9 +7,12 @@ import {AngularFireAuthGuard, redirectLoggedInTo, redirectUnauthorizedTo} from '
 import {ReauthComponent} from './account/components/reauth/reauth.component';
 import {EmailVerificationGuard} from './account/guards/email-verification/email-verification.guard';
 import {ResetPasswordComponent} from './account/components/reset-password/reset-password.component';
+import {map} from 'rxjs/operators';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToMainPage = () => redirectLoggedInTo(['search']);
+// @ts-ignore
+const notLoggedInOrLoggedInAndEmailNotVerified = () => map(user => !(user !== null && user.emailVerified === true));
 
 const routes: Routes = [
   {
@@ -18,9 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent,
-    canActivate: [AngularFireAuthGuard],
-    data: {authGuardPipe: redirectLoggedInToMainPage}
+    component: LoginComponent
   },
   {
     path: 'verify-email',

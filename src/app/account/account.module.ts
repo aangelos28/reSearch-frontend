@@ -12,6 +12,9 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {ReauthComponent} from './components/reauth/reauth.component';
 import {ResetPasswordComponent} from './components/reset-password/reset-password.component';
 import {RouterModule} from '@angular/router';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {AuthInterceptor} from './interceptors/auth/auth.interceptor';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -36,8 +39,10 @@ import {RouterModule} from '@angular/router';
     MatTabsModule,
     MatButtonModule,
     MatDialogModule,
-    RouterModule
-  ]
+    RouterModule,
+    SharedModule
+  ],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}]
 })
 export class AccountModule {
 }
