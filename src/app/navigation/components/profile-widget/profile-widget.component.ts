@@ -1,5 +1,6 @@
-import {Component, ElementRef, HostListener, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../../account/services/auth/auth.service';
+import {AccountService} from '../../../account/services/account/account.service';
 
 @Component({
   selector: 'app-profile-widget',
@@ -9,12 +10,16 @@ import {AuthService} from '../../../account/services/auth/auth.service';
 export class ProfileWidgetComponent implements OnInit {
 
   public profileMenuHidden = true;
+  public emailInitials = '';
 
-  constructor(private elementRef: ElementRef, private authService: AuthService) {
+  constructor(private elementRef: ElementRef, private authService: AuthService, private accountService: AccountService) {
   }
 
   ngOnInit(): void {
-    // Empty
+    // Get the email initials of the logged in user
+    this.accountService.getUserEmailAsync().then(userEmail => {
+      this.emailInitials = userEmail.charAt(0).toUpperCase();
+    });
   }
 
   /**

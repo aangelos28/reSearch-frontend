@@ -36,7 +36,7 @@ export class ResetPasswordComponent implements OnInit {
       this.dialog.open(InfoDialogComponent, {
         data: {
           title: 'Success',
-          text: 'Password resent email sent. Please check your inbox.'
+          text: 'Password reset email sent. Please check your inbox.'
         }
       })
     ).catch(err =>

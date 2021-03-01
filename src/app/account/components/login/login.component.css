@@ -1,5 +1,11 @@
 .login-container {
-  @apply pb-10;
+  @apply relative pb-10 mx-auto text-center md:w-full text-gray-300 border shadow-md rounded-lg;
+  max-width: 500px;
+  min-height: 500px;
+}
+
+.authorizing-container {
+  @apply relative pb-10 mx-auto text-center md:w-full border shadow-md rounded-lg;
   max-width: 500px;
   min-height: 500px;
 }

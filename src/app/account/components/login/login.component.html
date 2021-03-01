@@ -1,7 +1,7 @@
 <div class="body-container">
 
   <div *ngIf="handlingAuthentication; else loginBlock">
-    <div class="relative login-container mx-auto text-center md:w-full border shadow-md rounded-lg">
+    <div class="authorizing-container">
       <app-pulse-spinner></app-pulse-spinner>
       <h2 id="authorizing-text" class="text-green-500">Authorizing</h2>
     </div>
@@ -11,7 +11,7 @@
       <span class="text-blue-600">re</span><span class="text-green-500">Search</span>
     </h2>
 
-    <div class="relative login-container mx-auto text-center md:w-full text-gray-300 border shadow-md rounded-lg">
+    <div class="login-container">
       <mat-tab-group mat-align-tabs="center" dynamicHeight>
         <mat-tab label="Login">
           <form class="login-form" [formGroup]="loginForm" (ngSubmit)="loginEmailPassword()">
