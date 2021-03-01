@@ -3,7 +3,7 @@
   <div *ngIf="handlingAuthentication; else loginBlock">
     <div class="relative login-container mx-auto text-center md:w-full border shadow-md rounded-lg">
       <app-pulse-spinner></app-pulse-spinner>
-      <h2 class="text-green-500">Authorizing</h2>
+      <h2 id="authorizing-text" class="text-green-500">Authorizing</h2>
     </div>
   </div>
   <ng-template #loginBlock>

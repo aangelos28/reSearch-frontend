@@ -17,3 +17,9 @@
 .login-form-field {
   color: black;
 }
+
+@screen sm {
+  #authorizing-text {
+    font-size: 32px;
+  }
+}
