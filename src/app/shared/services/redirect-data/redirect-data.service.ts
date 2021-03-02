@@ -18,7 +18,7 @@ export class RedirectDataService {
    * if any exists.
    */
   public reset(): void {
-    this.data = undefined;
+    this.data = {};
     if (this.isPersisted()) {
       localStorage.removeItem(this.localStorageKey);
     }

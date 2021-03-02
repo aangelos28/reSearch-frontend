@@ -9,15 +9,19 @@ import {MatRippleModule} from '@angular/material/core';
 import {MatIconModule} from '@angular/material/icon';
 import {NavigationModule} from '../navigation/navigation.module';
 import {DeveloperPanelComponent} from './components/developer-panel/developer-panel.component';
+import {TopProgressBarComponent} from './components/top-progress-bar/top-progress-bar.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
     SearchMainComponent,
-    DeveloperPanelComponent
+    DeveloperPanelComponent,
+    TopProgressBarComponent
   ],
   exports: [
     SearchMainComponent,
-    DeveloperPanelComponent
+    DeveloperPanelComponent,
+    TopProgressBarComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +32,8 @@ import {DeveloperPanelComponent} from './components/developer-panel/developer-pa
     MatFormFieldModule,
     MatRippleModule,
     MatIconModule,
-    NavigationModule
+    NavigationModule,
+    MatProgressBarModule
   ]
 })
 export class CoreModule {

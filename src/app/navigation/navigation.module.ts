@@ -17,11 +17,11 @@ import {RouterModule} from '@angular/router';
     ProfileWidgetComponent,
     NavbarSearchComponent
   ],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        RouterModule
-    ]
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule
+  ]
 })
 export class NavigationModule {
 }

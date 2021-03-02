@@ -8,8 +8,9 @@ import {Router} from '@angular/router';
 import {RedirectDataService} from '../../../shared/services/redirect-data/redirect-data.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AccountService} from '../../services/account/account.service';
-import {AccountCreationData} from '../../model/account-model';
+import {AccountData} from '../../model/account-model';
 import {tap} from 'rxjs/operators';
+import {WorkTrackerService} from '../../../shared/services/work-tracker/work-tracker.service';
 
 export class CustomErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -51,7 +52,8 @@ export class LoginComponent implements OnInit {
   }
 
   constructor(public auth: AuthService, private router: Router, private snackBar: MatSnackBar, public dialog: MatDialog,
-              private accountService: AccountService, private redirectDataService: RedirectDataService) {
+              private accountService: AccountService, private redirectDataService: RedirectDataService,
+              private workTracker: WorkTrackerService) {
   }
 
   private handleAuthentication(): void {
@@ -59,7 +61,7 @@ export class LoginComponent implements OnInit {
     if (localStorage.getItem('redirectAuthentication') !== null) {
       this.handlingAuthentication = true;
       localStorage.removeItem('redirectAuthentication');
-      const accountCreationData: AccountCreationData = {fullName: ''};
+      const accountCreationData: AccountData = {fullName: ''};
       this.accountService.checkCreateUserBackend(accountCreationData).subscribe(existsOrCreated => {
         if (existsOrCreated) {
           this.redirectDataService.reset();
@@ -151,41 +153,34 @@ export class LoginComponent implements OnInit {
     const email: string = this.emailLogin.value;
     const password: string = this.passwordLogin.value;
 
-    console.log('Logging in');
-    this.handlingAuthentication = true;
+    this.workTracker.startWork();
     this.auth.loginFirebaseEmailPassword(email, password).then(() => {
-      console.log('Logged in');
       this.auth.firebaseAuth.currentUser.then(user => {
-        console.log('Got user');
         // Ensure that the user has a verified email
         if (user.emailVerified) {
-          console.log('User email is verified');
           this.accountService.checkUserAccountExistsBackend().subscribe(accountExists => {
-            console.log('Checking account exists');
             if (accountExists) {
-              console.log('Account exists');
               // User account exists, we can proceed with login
+              this.workTracker.finishWork();
               this.router.navigate(['search']);
             } else {
-              console.log('Account does not exist');
               // User account does not exist in the backend. We need to create one.
-              let accountCreationData: AccountCreationData = {fullName: ''};
+              let accountCreationData: AccountData = {fullName: ''};
 
-              console.log('Attempting to get data from local storage');
               // Read registration data from local storage if it exists
               if (localStorage.getItem('checkCreateUserBackend') !== null) {
-                console.log('Getting account creation data');
                 accountCreationData = JSON.parse(localStorage.getItem('accountCreationData'));
               }
 
               // Create user account in backend
-              console.log('Attempting to create account in backend');
               this.accountService.createUserAccountBackend(accountCreationData).subscribe(accountCreated => {
                 if (accountCreated) {
                   localStorage.removeItem('checkCreateUserBackend');
                   localStorage.removeItem('accountCreationData');
+                  this.workTracker.finishWork();
                   this.router.navigate(['search']);
                 } else {
+                  this.workTracker.finishWork();
                   this.dialog.open(InfoDialogComponent, {
                     data: {
                       title: 'Error',
@@ -198,11 +193,12 @@ export class LoginComponent implements OnInit {
           });
         } else {
           // User does not have a verified email
+          this.workTracker.finishWork();
           this.router.navigate(['verify-email']);
         }
       });
     }).catch(err => {
-      this.handlingAuthentication = true;
+      this.workTracker.finishWork();
       this.dialog.open(InfoDialogComponent, {
         data: {
           title: 'Error',
@@ -218,7 +214,7 @@ export class LoginComponent implements OnInit {
     this.auth.loginFirebaseGoogle().then(() => {
       // Login is with redirect
       console.log('Login with google');
-      const accountCreationData: AccountCreationData = {fullName: ''};
+      const accountCreationData: AccountData = {fullName: ''};
       this.accountService.checkCreateUserBackend(accountCreationData).pipe(
         tap(existsOrCreated => {
           if (existsOrCreated) {
@@ -232,7 +228,7 @@ export class LoginComponent implements OnInit {
   public register(): void {
     const email = this.emailRegister.value;
     const password = this.passwordRegister.value;
-    const accountCreationData: AccountCreationData = {
+    const accountCreationData: AccountData = {
       fullName: this.fullNameRegister.value
     };
     localStorage.setItem('checkCreateUserBackend', String(true));

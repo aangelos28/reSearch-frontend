@@ -1,3 +1,3 @@
-export interface AccountCreationData {
+export interface AccountData {
   fullName: string;
 }

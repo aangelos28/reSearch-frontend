@@ -15,19 +15,22 @@ import {RouterModule} from '@angular/router';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthInterceptor} from './interceptors/auth/auth.interceptor';
 import {SharedModule} from '../shared/shared.module';
+import {MyAccountComponent} from './components/my-account/my-account.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     EmailVerificationComponent,
     ReauthComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    MyAccountComponent
   ],
   exports: [
     LoginComponent,
     EmailVerificationComponent,
     ReauthComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    MyAccountComponent
   ],
   imports: [
     CommonModule,

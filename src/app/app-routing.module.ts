@@ -8,6 +8,7 @@ import {ReauthComponent} from './account/components/reauth/reauth.component';
 import {EmailVerificationGuard} from './account/guards/email-verification/email-verification.guard';
 import {ResetPasswordComponent} from './account/components/reset-password/reset-password.component';
 import {map} from 'rxjs/operators';
+import {MyAccountComponent} from './account/components/my-account/my-account.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToMainPage = () => redirectLoggedInTo(['search']);
@@ -18,6 +19,12 @@ const routes: Routes = [
   {
     path: 'search',
     component: SearchMainComponent
+  },
+  {
+    path: 'my-account',
+    component: MyAccountComponent,
+    canActivate: [AngularFireAuthGuard, EmailVerificationGuard],
+    data: {authGuardPipe: redirectUnauthorizedToLogin}
   },
   {
     path: 'login',

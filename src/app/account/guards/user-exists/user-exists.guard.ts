@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../../services/auth/auth.service';
 import {AccountService} from '../../services/account/account.service';
 import {RedirectDataService} from '../../../shared/services/redirect-data/redirect-data.service';
-import {AccountCreationData} from '../../model/account-model';
+import {AccountData} from '../../model/account-model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class UserExistsGuard implements CanActivate {
     if (this.redirectDataService.isPersisted()) {
       this.redirectDataService.readFromLocalStorage();
       if (this.redirectDataService.data.checkCreateUserBackend === true) {
-        const accountCreationData: AccountCreationData = {fullName: ''};
+        const accountCreationData: AccountData = {fullName: ''};
         return this.accountService.checkCreateUserBackend(accountCreationData).pipe(
           tap(existsOrCreated => {
             if (existsOrCreated) {
