@@ -226,6 +226,8 @@ export class LoginComponent implements OnInit {
   }
 
   public register(): void {
+    this.workTracker.startWork();
+
     const email = this.emailRegister.value;
     const password = this.passwordRegister.value;
     const accountCreationData: AccountData = {
@@ -236,17 +238,19 @@ export class LoginComponent implements OnInit {
 
     this.auth.createAccount(email, password).then(() => {
       this.auth.firebaseAuth.currentUser.then(user => {
-        user.sendEmailVerification().then(() =>
-          this.router.navigate(['verify-email'])
-        );
+        user.sendEmailVerification().then(() => {
+          this.workTracker.finishWork();
+          this.router.navigate(['verify-email']);
+        });
       });
-    }).catch(err =>
+    }).catch(err => {
+      this.workTracker.finishWork();
       this.dialog.open(InfoDialogComponent, {
         data: {
           title: 'Error',
           text: `Failed to create account.\n${err}`
         }
-      })
-    );
+      });
+    });
   }
 }
