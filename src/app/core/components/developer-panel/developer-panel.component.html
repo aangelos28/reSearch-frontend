@@ -1,0 +1,28 @@
+<!-- Developer Panel Button -->
+<button id="developer-panel-button" (click)="toggleDeveloperPanel()">
+  <i *ngIf="!developerPanelVisible" class="fas fa-code"></i>
+  <i *ngIf="developerPanelVisible" class="fas fa-times"></i>
+</button>
+
+<!-- Developer Panel -->
+<div *ngIf="developerPanelVisible" id="developer-panel">
+  <h2 class="text-md sm:text-sm">Developer Panel</h2>
+  <hr class="mb-5">
+  <div id="developer-panel-content">
+    <h3 class="sm:text-sm"><b>Access Token</b> (use to access backend REST API)</h3>
+    <div class="border p-3 rounded overflow-hidden break-all text-sm">
+      <p *ngIf="auth.firebaseAuth.idToken | async as idToken; else noIdToken;">{{ idToken }}</p>
+      <ng-template #noIdToken>
+        <p>Not logged in</p>
+      </ng-template>
+    </div>
+    <br>
+    <h3 class="sm:text-sm"><b>Profile Info</b></h3>
+    <div class="border p-3 rounded overflow-x-hidden overflow-y-scroll text-sm max-h-96">
+      <pre *ngIf="auth.firebaseAuth.user | async as user; else noUser;">{{user | json}}</pre>
+      <ng-template #noUser>
+        <p>Not logged in</p>
+      </ng-template>
+    </div>
+  </div>
+</div>

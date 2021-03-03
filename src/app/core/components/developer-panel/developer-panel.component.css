@@ -1,0 +1,11 @@
+#developer-panel-button {
+  @apply fixed bottom-0 left-0 text-2xl sm:text-lg text-white rounded-full bg-yellow-500 hover:bg-yellow-600 transition-colors shadow-lg ml-5 mb-5 h-14 w-14 sm:h-12 sm:w-12 p-1 flex items-center justify-center;
+  z-index: 110;
+}
+
+#developer-panel {
+  @apply fixed mx-auto bg-green-900 border-4 rounded-xl shadow-xl w-full h-full mx-72 bg-opacity-90 text-white px-10 py-5;
+  top: 0;
+  z-index: 100;
+  overflow-y: scroll;
+}

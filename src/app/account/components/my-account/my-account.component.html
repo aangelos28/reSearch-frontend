@@ -1,0 +1,59 @@
+<div class="body-container">
+  <div class="profile-container">
+    <!-- Account Information Section -->
+    <div class="profile-section-heading-container">
+      <h2 class="profile-section-heading text-green-500"><i class="fas fa-info-circle mr-2"></i> Account Information</h2>
+      <hr>
+    </div>
+    <div class="profile-section-container">
+      <!-- User ID -->
+      <div class="profile-form-field-container">
+        <mat-form-field class="profile-form-field" appearance="outline">
+          <mat-label>UID</mat-label>
+          <input matInput [formControl]="userIdField">
+        </mat-form-field>
+      </div>
+      <!-- Email -->
+      <div class="profile-form-field-container">
+        <mat-form-field class="profile-form-field" [class.edit-mode]="emailInEditMode" appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput [readonly]="!emailInEditMode" [formControl]="emailField" placeholder="Specify your email...">
+        </mat-form-field>
+        <div class="profile-form-field-button-container">
+          <button *ngIf="!emailInEditMode" mat-flat-button color="accent" class="edit-button" (click)="toggleEmailEditMode()">Edit</button>
+          <button *ngIf="emailInEditMode" mat-button color="warn" class="cancel-button" (click)="toggleEmailEditMode()">Cancel</button>
+          <button *ngIf="emailInEditMode" mat-flat-button color="accent" class="save-button" [disabled]="!emailChanged" (click)="saveEmailChanges()">Save</button>
+        </div>
+      </div>
+      <!-- Full Name -->
+      <div class="profile-form-field-container">
+        <mat-form-field class="profile-form-field" [class.edit-mode]="nameInEditMode" appearance="outline">
+          <mat-label>Full Name</mat-label>
+          <input matInput [readonly]="!nameInEditMode" [formControl]="nameField" placeholder="Specify your full name...">
+        </mat-form-field>
+        <div class="profile-form-field-button-container">
+          <button *ngIf="!nameInEditMode" mat-flat-button color="accent" class="edit-button" (click)="toggleNameEditMode()">Edit</button>
+          <button *ngIf="nameInEditMode" mat-button color="warn" class="cancel-button" (click)="toggleNameEditMode()">Cancel</button>
+          <button *ngIf="nameInEditMode" mat-flat-button color="accent" class="save-button" [disabled]="!nameChanged" (click)="saveNameChanges()">Save</button>
+        </div>
+      </div>
+    </div>
+    <!-- Account Security Section -->
+    <div class="profile-section-heading-container">
+      <h2 class="profile-section-heading text-green-500"><i class="fas fa-lock mr-2"></i> Account Security</h2>
+      <hr>
+    </div>
+    <div class="profile-section-container">
+      <!-- Password -->
+      <div class="profile-form-field-container">
+        <mat-form-field class="profile-form-field" appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" [formControl]="passwordField">
+        </mat-form-field>
+        <div class="profile-form-field-button-container">
+          <button mat-flat-button color="accent" class="edit-button" (click)="resetPassword()">Change</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

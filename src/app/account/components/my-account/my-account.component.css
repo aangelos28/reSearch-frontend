@@ -1,0 +1,56 @@
+.profile-container {
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.profile-section-heading-container {
+  @apply mb-10;
+}
+
+.profile-form-field {
+  width: 70%;
+}
+
+.profile-form-field-container {
+  @apply mb-5 sm:mb-7;
+}
+
+/*.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: rgb(59, 130, 246) !important;
+}*/
+
+::ng-deep .profile-form-field.edit-mode.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: rgb(59, 130, 246);
+}
+
+.profile-form-field-button-container {
+  @apply inline-block h-full items-center ml-3 sm:float-right sm:-mt-5;
+}
+.edit-button {
+  @apply text-white;
+}
+.save-button {
+  @apply text-white;
+}
+.cancel-button {
+  @apply mr-2;
+}
+
+@screen md {
+  .profile-container {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
+
+@screen sm {
+  .profile-container {
+    @apply w-full mx-0;
+  }
+  .profile-section-heading {
+    font-size: 24px;
+  }
+  .profile-form-field {
+    width: 100%;
+  }
+}
