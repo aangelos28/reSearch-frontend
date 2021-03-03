@@ -125,12 +125,12 @@ export class MyAccountComponent implements OnInit {
         });
 
         this.toggleNameEditMode();
-        this.authService.firebaseAuth.updateCurrentUser(this.user);
-        this.workTracker.finishWork();
+
+        // TODO fix
+        // this.authService.firebaseAuth.updateCurrentUser(this.user);
       }).catch(err => {
-        this.workTracker.finishWork();
         this.dialog.open(InfoDialogComponent, {data: {text: `${err}`}});
-      });
+      }).finally(() => this.workTracker.finishWork());
     });
   }
 
