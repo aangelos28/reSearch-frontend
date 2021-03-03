@@ -75,7 +75,7 @@ export class MyAccountComponent implements OnInit {
       this.emailChanged = (this.emailField.value !== this.userEmail && this.emailField.value !== '');
     }));
     this.subscriptions.add(this.nameField.valueChanges.subscribe(() => {
-      this.nameChanged = (this.nameField.value !== this.userName);
+      this.nameChanged = (this.nameField.value !== this.userName && this.nameField.value !== '');
     }));
 
     // Apply redirect params, if any
