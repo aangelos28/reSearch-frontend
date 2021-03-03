@@ -5,7 +5,7 @@ import {BehaviorSubject, Observable, of} from 'rxjs';
 import {auth, User} from 'firebase';
 import {HttpClient} from '@angular/common/http';
 import {catchError, switchMap} from 'rxjs/operators';
-import {AccountData} from '../../model/account-model';
+import {AccountData} from '../../../shared/model/account-model';
 
 @Injectable({
   providedIn: 'root'

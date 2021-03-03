@@ -6,7 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../../services/auth/auth.service';
 import {AccountService} from '../../services/account/account.service';
 import {RedirectDataService} from '../../../shared/services/redirect-data/redirect-data.service';
-import {AccountData} from '../../model/account-model';
+import {AccountData} from '../../../shared/model/account-model';
 
 @Injectable({
   providedIn: 'root'

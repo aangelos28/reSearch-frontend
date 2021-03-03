@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
 import {RedirectDataService} from '../../../shared/services/redirect-data/redirect-data.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AccountService} from '../../services/account/account.service';
-import {AccountData} from '../../model/account-model';
+import {AccountData} from '../../../shared/model/account-model';
 import {tap} from 'rxjs/operators';
 import {WorkTrackerService} from '../../../shared/services/work-tracker/work-tracker.service';
 
