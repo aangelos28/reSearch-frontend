@@ -3,6 +3,7 @@ import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/form
 import {AccountService} from '../../services/account/account.service';
 import {InfoDialogComponent} from '../../../shared/components/info-dialog/info-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {WorkTrackerService} from '../../../shared/services/work-tracker/work-tracker.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -13,7 +14,7 @@ export class ResetPasswordComponent implements OnInit {
 
   public resetPasswordForm: FormGroup;
 
-  constructor(public accountService: AccountService, private dialog: MatDialog) {
+  constructor(public accountService: AccountService, private workTracker: WorkTrackerService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -30,6 +31,8 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   public sendPasswordResetEmail(): void {
+    this.workTracker.startWork();
+
     const email: string = this.email.value;
 
     this.accountService.sendPasswordResetEmailAsync(email).then(() =>
@@ -46,6 +49,6 @@ export class ResetPasswordComponent implements OnInit {
           text: 'Failed to send password reset email.'
         }
       })
-    );
+    ).finally(() => this.workTracker.finishWork());
   }
 }
