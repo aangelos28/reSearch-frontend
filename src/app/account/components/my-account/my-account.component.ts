@@ -163,6 +163,11 @@ export class MyAccountComponent implements OnInit {
       this.authService.firebaseAuth.updateCurrentUser(this.user);
 
       this.workTracker.finishWork();
+
+      // If the new email address is not verified
+      if (!this.user.emailVerified) {
+        this.router.navigate(['verify-email']);
+      }
     }).catch(err => {
       this.workTracker.finishWork();
       if (err.code === 'auth/requires-recent-login') {
