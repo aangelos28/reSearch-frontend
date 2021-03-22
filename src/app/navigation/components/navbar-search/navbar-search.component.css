@@ -2,6 +2,18 @@
   @apply flex rounded-full border shadow-sm mx-4 sm:mx-2 px-8 py-2 sm:px-4 sm:py-0 flex-grow min-w-0 max-w-2xl focus-within:border-green-500 transition-colors;
 }
 
+.search-button {
+  @apply h-full flex items-stretch;
+}
+
+.search-button-icon {
+  @apply transform self-center pl-4 text-blue-600 transition-transform flex-none;
+}
+
+.search-button:hover .search-button-icon {
+  @apply text-blue-700 scale-125;
+}
+
 @screen sm {
   .logo {
     @apply text-sm;

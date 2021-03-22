@@ -24,9 +24,11 @@
 
       <div class="search-box flex mx-auto">
         <i class="fas fa-search self-center pr-4 text-green-500 flex-none"></i>
-        <input class="outline-none search-bar flex-grow min-w-0 rounded-3xl" formControlName="searchQuery" type="search"
+        <input class="outline-none search-bar flex-grow min-w-0 rounded-3xl" formControlName="searchText" type="search"
                placeholder="Search for scholarly documents...">
-        <i *ngIf="!searchQueryEmpty()" class="fas fa-long-arrow-alt-right self-center pl-4 text-blue-600 flex-none"></i>
+        <button *ngIf="!searchQueryEmpty()" class="search-button">
+          <i class="fas fa-long-arrow-alt-right search-button-icon"></i>
+        </button>
       </div>
     </form>
   </div>

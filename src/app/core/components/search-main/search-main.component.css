@@ -15,6 +15,18 @@
   height: 90px;
 }
 
+.search-button {
+  @apply h-full flex items-stretch;
+}
+
+.search-button-icon {
+  @apply self-center text-blue-600 transform transition-colors transition-transform flex-none;
+}
+
+.search-button:hover .search-button-icon {
+  @apply text-blue-700 scale-125;
+}
+
 @screen md {
   .search-box {
     width: 100%;

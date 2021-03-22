@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {SearchService} from '../../../shared/services/search/search.service';
+import {SearchQuery} from '../../../shared/model/search-model';
 
 @Component({
   selector: 'app-search-main',
@@ -10,26 +12,40 @@ export class SearchMainComponent implements OnInit {
 
   public searchForm: FormGroup;
 
-  constructor() {
-    // TODO
+  constructor(private searchService: SearchService) {
+    // Empty
   }
 
   ngOnInit(): void {
     this.searchForm = new FormGroup({
-      searchQuery: new FormControl('', [
+      searchText: new FormControl('', [
         Validators.required
       ])
     });
   }
 
+  get searchText(): AbstractControl {
+    return this.searchForm.get('searchText');
+  }
+
   public performSearch(): void {
-    // TODO
+    const searchQuery: SearchQuery = {
+      title: this.searchText.value,
+      subject: '',
+      author: '',
+      department: '',
+      degreeGrantor: '',
+      publisher: '',
+      pageNumber: 0
+    };
+
+    this.searchService.initiateSearch(searchQuery);
   }
 
   /**
    * Returns true if the search input is empty.
    */
   public searchQueryEmpty(): boolean {
-    return this.searchForm.get('searchQuery').value === '';
+    return this.searchText.value === '';
   }
 }
