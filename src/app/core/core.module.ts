@@ -11,17 +11,21 @@ import {NavigationModule} from '../navigation/navigation.module';
 import {DeveloperPanelComponent} from './components/developer-panel/developer-panel.component';
 import {TopProgressBarComponent} from './components/top-progress-bar/top-progress-bar.component';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {SearchResultsComponent} from './components/search-results/search-results.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
     SearchMainComponent,
     DeveloperPanelComponent,
-    TopProgressBarComponent
+    TopProgressBarComponent,
+    SearchResultsComponent
   ],
   exports: [
     SearchMainComponent,
     DeveloperPanelComponent,
-    TopProgressBarComponent
+    TopProgressBarComponent,
+    SearchResultsComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +37,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     MatRippleModule,
     MatIconModule,
     NavigationModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatPaginatorModule
   ]
 })
 export class CoreModule {

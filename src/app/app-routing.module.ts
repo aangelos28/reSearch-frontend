@@ -9,6 +9,7 @@ import {EmailVerificationGuard} from './account/guards/email-verification/email-
 import {ResetPasswordComponent} from './account/components/reset-password/reset-password.component';
 import {map} from 'rxjs/operators';
 import {MyAccountComponent} from './account/components/my-account/my-account.component';
+import {SearchResultsComponent} from './core/components/search-results/search-results.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToMainPage = () => redirectLoggedInTo(['search']);
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: 'search',
     component: SearchMainComponent
+  },
+  {
+    path: 'search-results',
+    component: SearchResultsComponent
   },
   {
     path: 'my-account',

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Router, UrlSerializer, UrlTree} from '@angular/router';
-import {SearchQuery} from '../../model/search-model';
+import {EtdSearchQuery} from '../../model/search-model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +10,7 @@ export class SearchService {
   constructor(private router: Router, private urlSerializer: UrlSerializer) {
   }
 
-  public initiateSearch(searchQuery: SearchQuery): void  {
-    if (searchQuery.title === '') {
-      return;
-    }
-
-    this.router.navigate(['search-results'], this.makeQueryUrlTree(searchQuery));
-  }
-
-  public initiateAdvancedSearch(searchQuery: SearchQuery): void {
+  public initiateSearch(searchQuery: EtdSearchQuery): void {
     if (this.isQueryEmpty(searchQuery)) {
       return;
     }
@@ -26,10 +18,11 @@ export class SearchService {
     this.router.navigate(['search-results'], this.makeQueryUrlTree(searchQuery));
   }
 
-  public makeQueryUrlTree(searchQuery: SearchQuery): UrlTree {
+  public makeQueryUrlTree(searchQuery: EtdSearchQuery): UrlTree {
     return this.router.createUrlTree([], {
       queryParams: {
         t: searchQuery.title,
+        tp: searchQuery.type,
         s: searchQuery.subject,
         a: searchQuery.author,
         d: searchQuery.department,
@@ -40,12 +33,12 @@ export class SearchService {
     });
   }
 
-  public urlEncodeQuery(searchQuery: SearchQuery): string {
+  public urlEncodeQuery(searchQuery: EtdSearchQuery): string {
     const tree = this.makeQueryUrlTree(searchQuery);
     return this.urlSerializer.serialize(tree);
   }
 
-  public isQueryEmpty(searchQuery: SearchQuery): boolean {
+  public isQueryEmpty(searchQuery: EtdSearchQuery): boolean {
       return searchQuery.title === '' && searchQuery.subject === '' && searchQuery.author === '' && searchQuery.department === '' &&
         searchQuery.degreeGrantor === '' && searchQuery.publisher === '';
   }
