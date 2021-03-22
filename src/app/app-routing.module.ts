@@ -10,6 +10,7 @@ import {ResetPasswordComponent} from './account/components/reset-password/reset-
 import {map} from 'rxjs/operators';
 import {MyAccountComponent} from './account/components/my-account/my-account.component';
 import {SearchResultsComponent} from './core/components/search-results/search-results.component';
+import {EtdDetailsComponent} from './core/components/etd-details/etd-details.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToMainPage = () => redirectLoggedInTo(['search']);
@@ -24,6 +25,10 @@ const routes: Routes = [
   {
     path: 'search-results',
     component: SearchResultsComponent
+  },
+  {
+    path: 'etd/:etdId',
+    component: EtdDetailsComponent
   },
   {
     path: 'my-account',

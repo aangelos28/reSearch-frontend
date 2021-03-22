@@ -1,0 +1,5 @@
+.etd-details-container {
+  @apply relative pb-10 mx-auto md:w-full;
+  max-width: 1300px;
+  min-height: 1300px;
+}

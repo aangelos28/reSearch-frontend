@@ -13,19 +13,23 @@ import {TopProgressBarComponent} from './components/top-progress-bar/top-progres
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {SearchResultsComponent} from './components/search-results/search-results.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {EtdDetailsComponent} from './components/etd-details/etd-details.component';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [
     SearchMainComponent,
     DeveloperPanelComponent,
     TopProgressBarComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    EtdDetailsComponent
   ],
   exports: [
     SearchMainComponent,
     DeveloperPanelComponent,
     TopProgressBarComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    EtdDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +42,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatIconModule,
     NavigationModule,
     MatProgressBarModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    RouterModule
   ]
 })
 export class CoreModule {
