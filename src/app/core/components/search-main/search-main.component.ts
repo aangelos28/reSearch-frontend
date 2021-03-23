@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {SearchService} from '../../../shared/services/search/search.service';
 import {EtdSearchQuery} from '../../../shared/model/search-model';
+import {MatDialog} from '@angular/material/dialog';
+import {SearchAdvancedComponent} from '../search-advanced/search-advanced.component';
 
 @Component({
   selector: 'app-search-main',
@@ -12,7 +14,7 @@ export class SearchMainComponent implements OnInit {
 
   public searchForm: FormGroup;
 
-  constructor(private searchService: SearchService) {
+  constructor(private searchService: SearchService, private dialog: MatDialog) {
     // Empty
   }
 
@@ -48,5 +50,12 @@ export class SearchMainComponent implements OnInit {
    */
   public searchQueryEmpty(): boolean {
     return this.searchText.value === '';
+  }
+
+  /**
+   * Opens the advanced search dialog.
+   */
+  public openAdvancedSearchDialog(): void {
+    this.dialog.open(SearchAdvancedComponent);
   }
 }

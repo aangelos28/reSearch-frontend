@@ -15,6 +15,8 @@ import {SearchResultsComponent} from './components/search-results/search-results
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {EtdDetailsComponent} from './components/etd-details/etd-details.component';
 import {RouterModule} from '@angular/router';
+import {SearchAdvancedComponent} from './components/search-advanced/search-advanced.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -22,14 +24,16 @@ import {RouterModule} from '@angular/router';
     DeveloperPanelComponent,
     TopProgressBarComponent,
     SearchResultsComponent,
-    EtdDetailsComponent
+    EtdDetailsComponent,
+    SearchAdvancedComponent
   ],
   exports: [
     SearchMainComponent,
     DeveloperPanelComponent,
     TopProgressBarComponent,
     SearchResultsComponent,
-    EtdDetailsComponent
+    EtdDetailsComponent,
+    SearchAdvancedComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +47,8 @@ import {RouterModule} from '@angular/router';
     NavigationModule,
     MatProgressBarModule,
     MatPaginatorModule,
-    RouterModule
+    RouterModule,
+    MatDialogModule
   ]
 })
 export class CoreModule {

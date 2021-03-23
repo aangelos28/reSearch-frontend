@@ -5,6 +5,8 @@ import {SearchService} from '../../../shared/services/search/search.service';
 import {ActivatedRoute} from '@angular/router';
 import {WorkTrackerService} from '../../../shared/services/work-tracker/work-tracker.service';
 import {PageEvent} from '@angular/material/paginator';
+import {SearchAdvancedComponent} from '../search-advanced/search-advanced.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-search-results',
@@ -19,7 +21,7 @@ export class SearchResultsComponent implements OnInit {
   public pageEvent: PageEvent;
 
   constructor(private httpClient: HttpClient, private searchService: SearchService, private route: ActivatedRoute,
-              private workTracker: WorkTrackerService) {
+              private workTracker: WorkTrackerService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -54,6 +56,13 @@ export class SearchResultsComponent implements OnInit {
       {params: this.searchService.makeQueryUrlTree(searchQuery).queryParams}).subscribe(searchResults => {
       this.searchResults = searchResults;
       this.workTracker.finishWork();
-    }, error => this.workTracker.finishWork());
+    }, () => this.workTracker.finishWork());
+  }
+
+  /**
+   * Opens the advanced search dialog.
+   */
+  public openAdvancedSearchDialog(): void {
+    this.dialog.open(SearchAdvancedComponent);
   }
 }

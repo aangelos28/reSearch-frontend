@@ -2,11 +2,15 @@
   <div class="search-results-container">
     <!-- Search Results Header -->
     <div *ngIf="searchResults != undefined">
-      <h2 class="text-green-500 text-4xl float-left inline">{{searchResults?.totalResultsInPages}} results</h2>
-      <mat-paginator [length]="searchResults.totalResultsInPages" [pageSize]="searchResults.resultsPerPage"
-                     (page)="pageEvent = updatePage($event)" class="inline float-right sm:float-left"></mat-paginator>
+      <div class="flex justify-end content-around">
+        <button mat-button color="accent" (click)="openAdvancedSearchDialog()">Advanced Search</button>
+      </div>
+      <div class="flex flex-row sm:flex-col content-between">
+        <h2 class="inline text-green-500 text-4xl flex-grow text-left">{{searchResults?.totalResultsInPages}} result(s)</h2>
+        <mat-paginator [length]="searchResults.totalResultsInPages" [pageSize]="searchResults.resultsPerPage"
+                       (page)="pageEvent = updatePage($event)" class="flex-grow sm:text-left"></mat-paginator>
+      </div>
     </div>
-
     <!-- Search Results -->
     <div *ngFor="let res of searchResults?.pageResults" class="text-left text-black shadow-md border rounded-lg">
       <div class="p-3">

@@ -1,0 +1,20 @@
+.advanced-search-container {
+  @apply w-full;
+  width: 50vw;
+}
+
+.advanced-search-button {
+  color: white;
+}
+
+@screen md {
+  .advanced-search-container {
+    width: 80vw;
+  }
+}
+
+@screen sm {
+  .advanced-search-container {
+    width: 80vw;
+  }
+}

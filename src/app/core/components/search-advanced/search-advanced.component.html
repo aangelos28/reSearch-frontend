@@ -1,0 +1,36 @@
+<h3 mat-dialog-title>Advanced Search</h3>
+
+<div mat-dialog-content class="advanced-search-container">
+  <form class="flex flex-col space-y-2" [formGroup]="advancedSearchForm" (ngSubmit)="performSearch()">
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input matInput form formControlName="title">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Type</mat-label>
+      <input matInput formControlName="type">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Subject</mat-label>
+      <input matInput formControlName="subject">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Author</mat-label>
+      <input matInput formControlName="author">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Department</mat-label>
+      <input matInput formControlName="department">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Degree Grantor</mat-label>
+      <input matInput formControlName="degreeGrantor">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Publisher</mat-label>
+      <input matInput formControlName="publisher">
+    </mat-form-field>
+    <br><br>
+    <button mat-raised-button color="primary" class="advanced-search-button">Search</button>
+  </form>
+</div>
