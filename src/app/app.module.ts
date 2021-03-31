@@ -11,6 +11,8 @@ import {firebaseEnvironment} from '../environments/firebase-env';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {NavigationModule} from './navigation/navigation.module';
 import {SharedModule} from './shared/shared.module';
+import {SearchModule} from './search/search.module';
+import {ArticleManagementModule} from './article-management/article-management.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import {SharedModule} from './shared/shared.module';
     CoreModule,
     AccountModule,
     NavigationModule,
+    SearchModule,
+    ArticleManagementModule,
     SharedModule
   ],
   providers: [HttpClientModule, {provide: LocationStrategy, useClass: HashLocationStrategy}],
