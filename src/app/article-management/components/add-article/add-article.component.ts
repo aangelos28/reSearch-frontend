@@ -146,7 +146,7 @@ export class AddArticleComponent implements OnInit {
     if (articleMetadata.type === 'dissertation') {
       articleMetadata.degree_level = 'PhD';
     } else if (articleMetadata.type === 'thesis') {
-      articleMetadata.degree_level = 'thesis';
+      articleMetadata.degree_level = 'Masters';
     }
 
     // Upload to backend
