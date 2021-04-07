@@ -132,15 +132,6 @@ export class AddArticleComponent implements OnInit {
   }
 
   public addArticle(): void {
-    console.log(`Title: ${this.titleField.value}`);
-    console.log(`Author: ${this.authorField.value}`);
-    console.log(`Publisher: ${this.publisherField.value}`);
-    console.log(`Department: ${this.departmentField.value}`);
-    console.log(`Type: ${this.typeField.value}`);
-    console.log(`Subjects: ${this.subjectsField.value}`);
-    console.log(`Abstract: ${this.abstractField.value}`);
-    console.log(`Document File Name: ${this.documentFileNameField.value}`);
-
     const articleMetadata: EtdEntryMeta = {
       title: this.titleField.value,
       contributor_author: this.authorField.value,
@@ -154,19 +145,19 @@ export class AddArticleComponent implements OnInit {
 
     if (articleMetadata.type === 'dissertation') {
       articleMetadata.degree_level = 'PhD';
-    }
-    else if (articleMetadata.type === 'thesis') {
+    } else if (articleMetadata.type === 'thesis') {
       articleMetadata.degree_level = 'thesis';
     }
 
     // Upload to backend
     this.workTracker.startWork();
     const formData = new FormData();
-    formData.append('metadata', new Blob([JSON.stringify(articleMetadata)], {type : 'application/json'}));
+    formData.append('metadata', new Blob([JSON.stringify(articleMetadata)], {type: 'application/json'}));
     formData.append('etdDocument', this.selectedDocument);
 
     this.httpClient.post('/private/etd/create', formData).subscribe(() => {
       this.router.navigate(['/my-articles']);
-    }, () => {}, () => this.workTracker.finishWork());
+    }, () => {
+    }, () => this.workTracker.finishWork());
   }
 }

@@ -27,22 +27,22 @@ import {SharedModule} from '../shared/shared.module';
     TopProgressBarComponent,
     EtdDetailsComponent
   ],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        FormsModule,
-        MatInputModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatRippleModule,
-        MatIconModule,
-        NavigationModule,
-        MatProgressBarModule,
-        MatPaginatorModule,
-        RouterModule,
-        MatDialogModule,
-        SharedModule
-    ]
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatRippleModule,
+    MatIconModule,
+    NavigationModule,
+    MatProgressBarModule,
+    MatPaginatorModule,
+    RouterModule,
+    MatDialogModule,
+    SharedModule
+  ]
 })
 export class CoreModule {
 }
