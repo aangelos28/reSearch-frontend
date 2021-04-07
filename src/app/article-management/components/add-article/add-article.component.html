@@ -1,1 +1,97 @@
-<p>add-article works!</p>
+<div class="body-container">
+  <div class="add-article-container">
+    <app-back-button></app-back-button>
+    <!-- Header -->
+    <div class="items-center text-green-500">
+      <h2 class="flex-grow">Add Article</h2>
+    </div>
+    <hr>
+    <!-- Form -->
+    <form class="flex flex-col space-y-4 text-black" [formGroup]="addArticleForm">
+      <mat-form-field appearance="fill">
+        <mat-label>Title</mat-label>
+        <input matInput form formControlName="title">
+        <mat-error *ngIf="titleField.hasError('required')">
+          The title is <strong>required</strong>.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Author (full name)</mat-label>
+        <input matInput form formControlName="author">
+        <mat-error *ngIf="authorField.hasError('required')">
+          The author is <strong>required</strong>.
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Publisher</mat-label>
+        <input matInput form formControlName="publisher">
+        <mat-error *ngIf="publisherField.hasError('required')">
+          The publisher is <strong>required</strong>.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Department</mat-label>
+        <input matInput form formControlName="department">
+        <mat-error *ngIf="departmentField.hasError('required')">
+          The department is <strong>required</strong>.
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Article Type</mat-label>
+        <mat-select formControlName="type">
+          <mat-option *ngFor="let articleType of ARTICLE_TYPES" [value]="articleType.name">
+            {{articleType.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="typeField.hasError('required')">
+          The article type is <strong>required</strong>.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Degree Name</mat-label>
+        <input matInput form formControlName="degreeName">
+        <mat-error *ngIf="degreeNameField.hasError('required')">
+          The degree name is <strong>required</strong>.
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Subject(s)</mat-label>
+        <mat-chip-list #subjectsChipList formControlName="subjects">
+          <mat-chip *ngFor="let subject of subjectsField.value" [selectable]="true"
+                    [removable]="true" (removed)="removeSubject(subject)">
+            {{subject}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Add subject..."
+                 [matChipInputFor]="subjectsChipList"
+                 [matChipInputSeparatorKeyCodes]="SEPARATOR_KEY_CODES"
+                 [matChipInputAddOnBlur]="true"
+                 (matChipInputTokenEnd)="addSubject($event)">
+        </mat-chip-list>
+        <mat-error *ngIf="subjectsField.hasError('required')">
+          At least one subject is <strong>required</strong>.
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Abstract</mat-label>
+        <textarea matInput form formControlName="abstract"></textarea>
+        <mat-error *ngIf="abstractField.hasError('required')">
+          The abstract is <strong>required</strong>.
+        </mat-error>
+      </mat-form-field>
+      <!-- Upload document field -->
+      <div>
+        <input type="file" class="hidden" (change)="onFileSelected($event)" #documentUpload>
+        <div>
+          <p class="inline mr-5">{{documentFileNameField.value || "No PDF document selected."}}</p>
+          <button mat-flat-button color="accent" (click)="documentUpload.click()">Choose</button>
+        </div>
+      </div>
+      <br>
+      <button mat-flat-button color="primary" id="submit-button" (click)="addArticle()">Submit</button>
+    </form>
+  </div>
+</div>

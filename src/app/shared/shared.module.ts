@@ -6,15 +6,18 @@ import {InfoDialogComponent} from './components/info-dialog/info-dialog.componen
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {PulseSpinnerComponent} from './components/pulse-spinner/pulse-spinner.component';
+import { BackButtonComponent } from './components/back-button/back-button.component';
 
 @NgModule({
   declarations: [
     InfoDialogComponent,
-    PulseSpinnerComponent
+    PulseSpinnerComponent,
+    BackButtonComponent
   ],
   exports: [
     InfoDialogComponent,
-    PulseSpinnerComponent
+    PulseSpinnerComponent,
+    BackButtonComponent
   ],
   imports: [
     CommonModule,

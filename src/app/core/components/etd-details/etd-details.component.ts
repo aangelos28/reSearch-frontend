@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
 import {EtdEntryMeta} from '../../../shared/model/search-model';
 import {WorkTrackerService} from '../../../shared/services/work-tracker/work-tracker.service';
@@ -31,7 +31,7 @@ export class EtdDetailsComponent implements OnInit {
     this.httpClient.get<EtdEntryMeta>(`/public/etd/${this.etdId}`).subscribe(etdDetails => {
       this.etdDetails = etdDetails;
       this.workTracker.finishWork();
-    }, error => this.workTracker.finishWork());
+    }, () => this.workTracker.finishWork());
   }
 
   public downloadPdf(): void {

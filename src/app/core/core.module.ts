@@ -14,6 +14,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {EtdDetailsComponent} from './components/etd-details/etd-details.component';
 import {RouterModule} from '@angular/router';
 import {MatDialogModule} from '@angular/material/dialog';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -26,21 +27,22 @@ import {MatDialogModule} from '@angular/material/dialog';
     TopProgressBarComponent,
     EtdDetailsComponent
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatRippleModule,
-    MatIconModule,
-    NavigationModule,
-    MatProgressBarModule,
-    MatPaginatorModule,
-    RouterModule,
-    MatDialogModule
-  ]
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatRippleModule,
+        MatIconModule,
+        NavigationModule,
+        MatProgressBarModule,
+        MatPaginatorModule,
+        RouterModule,
+        MatDialogModule,
+        SharedModule
+    ]
 })
 export class CoreModule {
 }

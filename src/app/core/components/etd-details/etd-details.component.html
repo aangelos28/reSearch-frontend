@@ -1,14 +1,18 @@
 <div class="body-container">
   <div *ngIf="this.etdDetails != undefined" class="etd-details-container">
+    <app-back-button></app-back-button>
     <h2 class="font-bold">{{this.etdDetails.title}}</h2>
+    <h4 class="text-gray-500"><span class="font-bold">{{this.etdDetails.contributor_author}}</span></h4>
+    <h4 *ngIf="this.etdDetails.contributor_committee_chair" class="text-gray-500">Advisor: {{this.etdDetails.contributor_committee_chair}}</h4>
     <div class="flex flex-row content-between">
-      <h3 class="text-green-500 flex-grow">{{this.etdDetails.publisher}} <span class="text-gray-400"> | </span> {{this.etdDetails.type}} <span class="text-gray-400"> | </span>
-        <span class="text-blue-600">{{this.etdDetails.date_issued | date}}</span>
-      </h3>
+      <h4 class="text-green-500 flex-grow">{{this.etdDetails.publisher}} <span class="text-gray-400"> | </span> {{this.etdDetails.type}}
+        <span class="text-gray-400"> | </span> <span class="text-blue-600">{{this.etdDetails.date_issued | date}}</span>
+      </h4>
       <button mat-stroked-button color="warn" class="ml-1" (click)="downloadPdf()"><i class="fas fa-file-pdf mr-2"></i>PDF</button>
     </div>
-    <h4 class="text-gray-500">{{this.etdDetails.contributor_author}}</h4>
-    <br>
+    <h4>Department: <span class="text-gray-500">{{this.etdDetails.contributor_department}}</span></h4>
+    <h4>Subject(s): <span class="text-gray-500">{{this.etdDetails.subject.join(', ')}}</span></h4>
+    <hr class="mt-1 mb-3">
     <p class="text-justify">{{this.etdDetails.description_abstract}}</p>
   </div>
 </div>

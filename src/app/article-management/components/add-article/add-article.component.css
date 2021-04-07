@@ -1,0 +1,9 @@
+.add-article-container {
+  @apply relative pb-10 mx-auto text-left md:w-full text-gray-300 flex flex-col space-y-5;
+  max-width: 1100px;
+  min-height: 1100px;
+}
+
+#submit-button {
+  @apply text-white text-lg py-3;
+}
