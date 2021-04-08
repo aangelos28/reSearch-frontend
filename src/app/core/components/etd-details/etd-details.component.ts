@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
-import {EtdEntryMeta} from '../../../shared/model/search-model';
+import {EtdEntryMeta} from '../../../shared/model/etd-model';
 import {WorkTrackerService} from '../../../shared/services/work-tracker/work-tracker.service';
 import {environment} from '../../../../environments/environment';
 

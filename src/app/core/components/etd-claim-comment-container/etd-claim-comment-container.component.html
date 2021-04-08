@@ -1,0 +1,59 @@
+<div class="flex flex-row items-center">
+  <h2 class="inline mb-4 flex-grow">Claim Comments</h2>
+  <button *ngIf="!addCommentFormVisible" mat-flat-button color="primary" id="add-comment-button" (click)="showAddCommentForm()">
+    <i class="fas fa-plus mr-1 pb-0.5"></i>
+    Add Comment
+  </button>
+</div>
+
+<!-- Add Comment Form -->
+<div *ngIf="addCommentFormVisible" class="shadow-md border rounded-lg p-5 mb-8">
+  <div class="flex flex-row items-center mb-2">
+    <h3 class="inline flex-grow">Add Comment</h3>
+    <button mat-flat-button color="warn" id="close-add-comment-form-button" (click)="hideAddCommentForm()">Close</button>
+  </div>
+  <form  class="flex flex-col space-y-4 text-black" [formGroup]="addCommentForm" (ngSubmit)="addClaimComment()">
+    <mat-form-field appearance="fill">
+      <mat-label>Claim</mat-label>
+      <input matInput form formControlName="claim">
+      <mat-error *ngIf="claimField.hasError('required')">
+        An author's claim is <strong>required</strong>.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Reproducible</mat-label>
+      <mat-select formControlName="reproducible">
+        <mat-option *ngFor="let reproducibleOption of REPRODUCIBLE_OPTIONS" [value]="reproducibleOption.value">
+          {{reproducibleOption.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="reproducibleField.hasError('required')">
+        The reproducibility is <strong>required</strong>.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Proof Source Code Url</mat-label>
+      <input matInput form formControlName="proofSourceCodeUrl">
+      <mat-error *ngIf="proofSourceCodeUrlField.hasError('required')">
+        A proof source code URL is <strong>required</strong>.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Proof Dataset Url</mat-label>
+      <input matInput form formControlName="proofDataSetUrl">
+      <mat-error *ngIf="proofDataSetUrlField.hasError('required')">
+        A proof dataset URL is <strong>required</strong>.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Experiments and Results</mat-label>
+      <textarea matInput form formControlName="results"></textarea>
+      <mat-error *ngIf="resultsField.hasError('required')">
+        A description of results is <strong>required</strong>.
+      </mat-error>
+    </mat-form-field>
+    <button mat-flat-button color="primary" id="submit-add-comment-form-button">Submit</button>
+  </form>
+</div>
+
+<app-etd-claim-comment-list [etdId]="etdId" [commentsList]="commentsList"></app-etd-claim-comment-list>

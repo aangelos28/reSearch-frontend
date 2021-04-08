@@ -17,8 +17,9 @@ export interface EtdEntryMeta {
   type?: string;
   subject?: [string];
   contributor_author?: string;
-  contributor_committee_chair?: string;
-  contributor_committee_member?: [string];
+  contributor_committeechair?: [string];
+  contributor_committeecochair?: [string];
+  contributor_committeemember?: [string];
   contributor_department?: string;
   date_accessioned?: Date;
   date_available?: Date;
@@ -37,4 +38,16 @@ export interface EtdSearchResults {
   resultsPerPage: number;
   totalResultsInPages: number;
   pageResults: [EtdEntryMeta];
+}
+
+export interface EtdClaimComment {
+  id?: number;
+  authorId?: number;
+  authorName?: string;
+  claim: string;
+  reproducible: number;
+  proofSourceCodeUrl?: string;
+  proofDatasetUrl?: string;
+  results: string;
+  createdAt?: Date;
 }

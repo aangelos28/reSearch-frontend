@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup} from '@angular/forms';
 import {SearchService} from '../../../shared/services/search/search.service';
-import {EtdSearchQuery} from '../../../shared/model/search-model';
+import {EtdSearchQuery} from '../../../shared/model/etd-model';
 import {MatDialogRef} from '@angular/material/dialog';
 
 @Component({

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {EtdEntryMeta} from '../../../shared/model/search-model';
+import {EtdEntryMeta} from '../../../shared/model/etd-model';
 import {HttpClient} from '@angular/common/http';
 import {WorkTrackerService} from '../../../shared/services/work-tracker/work-tracker.service';
 
@@ -23,7 +23,7 @@ export class MyArticlesComponent implements OnInit {
   public getUserArticles(): void {
     this.workTracker.startWork();
     this.httpClient.get<EtdEntryMeta[]>('/private/etd/user/all').subscribe(articles => {
-      this.articlesList = articles;
+      this.articlesList = articles.reverse();
       this.workTracker.finishWork();
     }, () => this.workTracker.finishWork());
   }

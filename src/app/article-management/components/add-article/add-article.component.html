@@ -22,6 +22,24 @@
           The author is <strong>required</strong>.
         </mat-error>
       </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Advisor(s)</mat-label>
+        <mat-chip-list #advisorsChipList formControlName="advisors">
+          <mat-chip *ngFor="let advisor of advisorsField.value" [selectable]="true"
+                    [removable]="true" (removed)="removeAdvisor(advisor)">
+            {{advisor}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Add advisor..."
+                 [matChipInputFor]="advisorsChipList"
+                 [matChipInputSeparatorKeyCodes]="SEPARATOR_KEY_CODES"
+                 [matChipInputAddOnBlur]="true"
+                 (matChipInputTokenEnd)="addAdvisor($event)">
+        </mat-chip-list>
+        <mat-error *ngIf="subjectsField.hasError('required')">
+          At least one subject is <strong>required</strong>.
+        </mat-error>
+      </mat-form-field>
       <br>
       <mat-form-field appearance="fill">
         <mat-label>Publisher</mat-label>
@@ -91,7 +109,7 @@
         </div>
       </div>
       <br>
-      <button mat-flat-button color="primary" id="submit-button" (click)="addArticle()">Submit</button>
+      <button mat-flat-button color="primary" id="submit-button" [disabled]="!addArticleForm.valid" (click)="addArticle()">Submit</button>
     </form>
   </div>
 </div>

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Router, UrlSerializer, UrlTree} from '@angular/router';
-import {EtdSearchQuery} from '../../model/search-model';
+import {EtdSearchQuery} from '../../model/etd-model';
 
 @Injectable({
   providedIn: 'root'

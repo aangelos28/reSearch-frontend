@@ -1,0 +1,38 @@
+<div *ngIf="commentsList.length > 0; else noComments">
+  <div *ngFor="let comment of commentsList" class="text-left text-black shadow-md border rounded-lg mb-5">
+    <div class="p-3">
+      <h2 class="leading-5 text-xl font-bold mb-3">{{comment.claim}}</h2>
+      <h4>By <span class="font-bold text-blue-500">{{comment.authorName}}</span></h4>
+      <h4>{{comment.createdAt | date: 'medium'}}</h4>
+      <h4 [ngSwitch]="comment.reproducible">
+        Reproducible:
+        <span *ngSwitchCase="0" class="text-red-500 font-bold">NO</span>
+        <span *ngSwitchCase="1" class="text-yellow-500 font-bold">PARTIALLY</span>
+        <span *ngSwitchCase="2" class="text-green-500 font-bold">YES</span>
+      </h4>
+      <h4>
+        Proof:
+        <span *ngIf="comment.proofSourceCodeUrl || comment.proofDatasetUrl; else noProof">
+          <a *ngIf="comment.proofSourceCodeUrl" class="text-blue-500 underline" href="{{comment.proofSourceCodeUrl}}" target="_blank">Source Code</a>
+          <span *ngIf="comment.proofSourceCodeUrl && comment.proofDatasetUrl"> | </span>
+          <a *ngIf="comment.proofDatasetUrl" class="text-blue-500 underline" href="{{comment.proofDatasetUrl}}" target="_blank">Dataset</a>
+        </span>
+        <ng-template #noProof>
+          <span class="font-bold">N/A</span>
+        </ng-template>
+      </h4>
+      <br>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Experiments and Results
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>{{comment.results}}</p>
+      </mat-expansion-panel>
+    </div>
+  </div>
+</div>
+<ng-template #noComments>
+  <h3 class="text-gray-500">No Comments</h3>
+</ng-template>

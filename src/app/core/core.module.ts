@@ -15,12 +15,18 @@ import {EtdDetailsComponent} from './components/etd-details/etd-details.componen
 import {RouterModule} from '@angular/router';
 import {MatDialogModule} from '@angular/material/dialog';
 import {SharedModule} from '../shared/shared.module';
+import { EtdClaimCommentListComponent } from './components/etd-claim-comment-list/etd-claim-comment-list.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { EtdClaimCommentContainerComponent } from './components/etd-claim-comment-container/etd-claim-comment-container.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
     DeveloperPanelComponent,
     TopProgressBarComponent,
-    EtdDetailsComponent
+    EtdDetailsComponent,
+    EtdClaimCommentListComponent,
+    EtdClaimCommentContainerComponent
   ],
   exports: [
     DeveloperPanelComponent,
@@ -39,9 +45,11 @@ import {SharedModule} from '../shared/shared.module';
     NavigationModule,
     MatProgressBarModule,
     MatPaginatorModule,
+    MatExpansionModule,
     RouterModule,
     MatDialogModule,
-    SharedModule
+    SharedModule,
+    MatSelectModule
   ]
 })
 export class CoreModule {

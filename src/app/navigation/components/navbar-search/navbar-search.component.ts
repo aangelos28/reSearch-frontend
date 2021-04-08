@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {EtdSearchQuery} from '../../../shared/model/search-model';
+import {EtdSearchQuery} from '../../../shared/model/etd-model';
 import {SearchService} from '../../../shared/services/search/search.service';
 
 @Component({
@@ -29,6 +29,10 @@ export class NavbarSearchComponent implements OnInit {
   }
 
   public performSearch(): void {
+    // Clean tags from search query
+    const cleanTitle = this.searchText.value.replace(/<[^>]*>/g, '');
+    this.searchText.setValue(cleanTitle);
+
     const searchQuery: EtdSearchQuery = {
       title: this.searchText.value,
       type: undefined,

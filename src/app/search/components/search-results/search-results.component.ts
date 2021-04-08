@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {EtdSearchQuery, EtdSearchResults} from '../../../shared/model/search-model';
+import {EtdSearchQuery, EtdSearchResults} from '../../../shared/model/etd-model';
 import {SearchService} from '../../../shared/services/search/search.service';
 import {ActivatedRoute} from '@angular/router';
 import {WorkTrackerService} from '../../../shared/services/work-tracker/work-tracker.service';

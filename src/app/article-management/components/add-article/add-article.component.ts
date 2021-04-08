@@ -4,7 +4,7 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {HttpClient} from '@angular/common/http';
 import {WorkTrackerService} from '../../../shared/services/work-tracker/work-tracker.service';
-import {EtdEntryMeta} from '../../../shared/model/search-model';
+import {EtdEntryMeta} from '../../../shared/model/etd-model';
 import {Router} from '@angular/router';
 
 interface ArticleType {
@@ -39,6 +39,7 @@ export class AddArticleComponent implements OnInit {
       author: new FormControl('', [
         Validators.required
       ]),
+      advisors: new FormControl([]),
       publisher: new FormControl('', [
         Validators.required
       ]),
@@ -51,9 +52,7 @@ export class AddArticleComponent implements OnInit {
       degreeName: new FormControl('', [
         Validators.required
       ]),
-      subjects: new FormControl([], [
-        Validators.required
-      ]),
+      subjects: new FormControl([]),
       abstract: new FormControl('', [
         Validators.required
       ]),
@@ -69,6 +68,10 @@ export class AddArticleComponent implements OnInit {
 
   get authorField(): AbstractControl {
     return this.addArticleForm.get('author');
+  }
+
+  get advisorsField(): AbstractControl {
+    return this.addArticleForm.get('advisors');
   }
 
   get publisherField(): AbstractControl {
@@ -122,6 +125,29 @@ export class AddArticleComponent implements OnInit {
     }
   }
 
+  public addAdvisor(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add subject to subjects list
+    if ((value || '').trim()) {
+      this.advisorsField.value.push(value.trim());
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  public removeAdvisor(advisor: string): void {
+    const index = this.advisorsField.value.indexOf(advisor);
+
+    if (index >= 0) {
+      this.advisorsField.value.splice(index, 1);
+    }
+  }
+
   public onFileSelected(event): void {
     const file: File = event.target.files[0];
 
@@ -135,6 +161,7 @@ export class AddArticleComponent implements OnInit {
     const articleMetadata: EtdEntryMeta = {
       title: this.titleField.value,
       contributor_author: this.authorField.value,
+      contributor_committeemember: this.advisorsField.value,
       publisher: this.publisherField.value,
       contributor_department: this.departmentField.value,
       type: this.typeField.value,
@@ -156,8 +183,8 @@ export class AddArticleComponent implements OnInit {
     formData.append('etdDocument', this.selectedDocument);
 
     this.httpClient.post('/private/etd/create', formData).subscribe(() => {
-      this.router.navigate(['/my-articles']);
-    }, () => {
-    }, () => this.workTracker.finishWork());
+      this.workTracker.finishWork();
+      this.router.navigate(['my-articles']);
+    });
   }
 }

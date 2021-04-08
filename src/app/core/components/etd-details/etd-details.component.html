@@ -3,7 +3,6 @@
     <app-back-button></app-back-button>
     <h2 class="font-bold">{{this.etdDetails.title}}</h2>
     <h4 class="text-gray-500"><span class="font-bold">{{this.etdDetails.contributor_author}}</span></h4>
-    <h4 *ngIf="this.etdDetails.contributor_committee_chair" class="text-gray-500">Advisor: {{this.etdDetails.contributor_committee_chair}}</h4>
     <div class="flex flex-row content-between">
       <h4 class="text-green-500 flex-grow">{{this.etdDetails.publisher}} <span class="text-gray-400"> | </span> {{this.etdDetails.type}}
         <span class="text-gray-400"> | </span> <span class="text-blue-600">{{this.etdDetails.date_issued | date}}</span>
@@ -12,7 +11,10 @@
     </div>
     <h4>Department: <span class="text-gray-500">{{this.etdDetails.contributor_department}}</span></h4>
     <h4>Subject(s): <span class="text-gray-500">{{this.etdDetails.subject.join(', ')}}</span></h4>
+    <h4 *ngIf="this.etdDetails.contributor_committeemember">Committee: <span class="text-gray-500">{{this.etdDetails.contributor_committeemember.join(' | ')}}</span></h4>
     <hr class="mt-1 mb-3">
     <p class="text-justify">{{this.etdDetails.description_abstract}}</p>
+    <hr class="my-5">
+    <app-etd-claim-comment-container [etdId]="etdId"></app-etd-claim-comment-container>
   </div>
 </div>
