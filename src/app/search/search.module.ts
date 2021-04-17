@@ -14,15 +14,16 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {RouterModule} from '@angular/router';
 import {MatDialogModule} from '@angular/material/dialog';
+import {HighlightKeywordsPipe} from './pipes/highlight-keywords/highlight-keywords.pipe';
 
 @NgModule({
   declarations: [
     SearchMainComponent,
     SearchAdvancedComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    HighlightKeywordsPipe
   ],
   exports: [
-
   ],
   imports: [
     CommonModule,

@@ -60,6 +60,19 @@ export class SearchResultsComponent implements OnInit {
   }
 
   /**
+   * Returns the title keywords in the search query as a string array.
+   */
+  public getSearchKeywordsAsArray(): string[] {
+    let keywords: string[] = [];
+
+    if (this.searchQuery.title?.length > 0) {
+      keywords = keywords.concat(this.searchQuery.title.split(' '));
+    }
+
+    return keywords;
+  }
+
+  /**
    * Opens the advanced search dialog.
    */
   public openAdvancedSearchDialog(): void {

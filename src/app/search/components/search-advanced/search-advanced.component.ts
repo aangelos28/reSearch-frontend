@@ -63,7 +63,7 @@ export class SearchAdvancedComponent implements OnInit {
     };
 
     if (this.title.value !== '') {
-      searchQuery.title = this.title.value;
+      searchQuery.title = this.title.value.replace(/<[^>]*>/g, '');
     }
     if (this.type.value !== '') {
       searchQuery.type = this.type.value;
