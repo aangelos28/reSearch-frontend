@@ -1,19 +1,22 @@
 import {Injectable} from '@angular/core';
 import {Router, UrlSerializer, UrlTree} from '@angular/router';
 import {EtdSearchQuery} from '../../model/etd-model';
+import {NavbarSearchService} from '../../../navigation/services/navbar-search/navbar-search.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
 
-  constructor(private router: Router, private urlSerializer: UrlSerializer) {
+  constructor(private router: Router, private urlSerializer: UrlSerializer, private navbarSearchService: NavbarSearchService) {
   }
 
   public initiateSearch(searchQuery: EtdSearchQuery): void {
     if (this.isQueryEmpty(searchQuery)) {
       return;
     }
+
+    this.navbarSearchService.setQuery(searchQuery.title);
 
     this.router.navigate(['search-results'], this.makeQueryUrlTree(searchQuery));
   }

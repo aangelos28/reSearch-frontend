@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormGroup} from '@angular/forms';
 import {EtdSearchQuery} from '../../../shared/model/etd-model';
 import {SearchService} from '../../../shared/services/search/search.service';
+import {NavbarSearchService} from '../../services/navbar-search/navbar-search.service';
 
 @Component({
   selector: 'app-navbar-search',
@@ -12,15 +13,13 @@ export class NavbarSearchComponent implements OnInit {
 
   public searchForm: FormGroup;
 
-  constructor(private searchService: SearchService) {
+  constructor(private searchService: SearchService, private navbarSearchService: NavbarSearchService) {
     // Empty
   }
 
   ngOnInit(): void {
     this.searchForm = new FormGroup({
-      searchText: new FormControl('', [
-        Validators.required
-      ])
+      searchText: this.navbarSearchService.query
     });
   }
 
