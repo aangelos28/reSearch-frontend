@@ -6,10 +6,12 @@
         <div>
           <!-- Like button -->
           <ng-container *ngIf="this.accountService.isLoggedInAndVerified | async">
-            <button *ngIf="this.commentsList[i].likeStatus <= 0; else alreadyLiked" class="text-2xl text-white text-green-500" (click)="likeComment(i)"><i class="far fa-thumbs-up"></i></button>
-            <ng-template #alreadyLiked>
-              <button class="text-2xl text-white text-green-500" (click)="likeComment(i)"><i class="fa fa-thumbs-up"></i></button>
-            </ng-template>
+            <button class="text-2xl text-white text-green-500" (click)="likeComment(i)">
+              <i *ngIf="this.commentsList[i].likeStatus <= 0; else alreadyLiked" class="far fa-thumbs-up"></i>
+              <ng-template #alreadyLiked>
+                <i class="fa fa-thumbs-up"></i>
+              </ng-template>
+            </button>
           </ng-container>
 
           <span class="rounded-full p-2 text-md font-bold text-white bg-green-500 mx-3"
@@ -19,10 +21,12 @@
 
           <!-- Dislike button -->
           <ng-container *ngIf="this.accountService.isLoggedInAndVerified | async">
-            <button *ngIf="this.commentsList[i].likeStatus >= 0; else alreadyDisliked" class="text-2xl text-white text-red-500" (click)="dislikeComment(i)"><i class="far fa-thumbs-down"></i></button>
-            <ng-template #alreadyDisliked>
-              <button class="text-2xl text-white text-red-500"><i class="fa fa-thumbs-down" (click)="dislikeComment(i)"></i></button>
-            </ng-template>
+            <button class="text-2xl text-white text-red-500" (click)="dislikeComment(i)">
+              <i *ngIf="this.commentsList[i].likeStatus >= 0; else alreadyDisliked" class="far fa-thumbs-down"></i>
+              <ng-template #alreadyDisliked>
+                <i class="fa fa-thumbs-down"></i>
+              </ng-template>
+            </button>
           </ng-container>
         </div>
       </div>
