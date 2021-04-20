@@ -1,9 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {EtdClaimComment} from '../../../shared/model/etd-model';
 import {WorkTrackerService} from '../../../shared/services/work-tracker/work-tracker.service';
 import {AccountService} from '../../../account/services/account/account.service';
+import {Subscription} from 'rxjs';
 
 interface Reproducible {
   name: string;
@@ -15,7 +16,7 @@ interface Reproducible {
   templateUrl: './etd-claim-comment-container.component.html',
   styleUrls: ['./etd-claim-comment-container.component.css']
 })
-export class EtdClaimCommentContainerComponent implements OnInit {
+export class EtdClaimCommentContainerComponent implements OnInit, OnDestroy {
 
   @Input() etdId: number;
 
@@ -29,6 +30,8 @@ export class EtdClaimCommentContainerComponent implements OnInit {
     {name: 'PARTIALLY', value: 1},
     {name: 'NO', value: 0}
   ];
+
+  private likeStatusesSubscription: Subscription;
 
   constructor(private httpClient: HttpClient, public accountService: AccountService, private workTracker: WorkTrackerService) {
     this.commentsList = [];
@@ -50,6 +53,10 @@ export class EtdClaimCommentContainerComponent implements OnInit {
     });
 
     this.getClaimComments();
+  }
+
+  ngOnDestroy(): void {
+    this.likeStatusesSubscription.unsubscribe();
   }
 
   get claimField(): AbstractControl {
@@ -88,10 +95,33 @@ export class EtdClaimCommentContainerComponent implements OnInit {
     this.httpClient.get<EtdClaimComment[]>(`/public/etd/${this.etdId}/comments`).subscribe(comments => {
         this.commentsList = comments.reverse();
         this.workTracker.finishWork();
+        this.getLikeStatuses();
       },
       () => {
       },
       () => this.workTracker.finishWork());
+  }
+
+  private getLikeStatuses(): void {
+    this.likeStatusesSubscription = this.accountService.isLoggedInAndVerified.subscribe(loggedIn => {
+      if (!loggedIn) {
+        return;
+      }
+
+      let params = new HttpParams();
+      for (const comment of this.commentsList) {
+        params = params.append('i', String(comment.id));
+      }
+
+      this.workTracker.startWork();
+      this.httpClient.get<number[]>(`/private/etd/comment/like-statuses`, {params}).subscribe(likeStatuses => {
+        likeStatuses = likeStatuses.reverse();
+        for (let i = 0; i < likeStatuses.length; ++i) {
+          this.commentsList[i].likeStatus = likeStatuses[i];
+        }
+        this.workTracker.finishWork();
+      }, () => this.workTracker.finishWork());
+    });
   }
 
   /**

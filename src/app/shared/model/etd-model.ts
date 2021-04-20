@@ -49,5 +49,7 @@ export interface EtdClaimComment {
   proofSourceCodeUrl?: string;
   proofDatasetUrl?: string;
   results: string;
+  likes?: number;
+  likeStatus?: number;
   createdAt?: Date;
 }
