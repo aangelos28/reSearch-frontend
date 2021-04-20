@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {EtdSearchQuery, EtdSearchResults} from '../../../shared/model/etd-model';
-import {SearchService} from '../../../shared/services/search/search.service';
+import {SearchService} from '../../services/search/search.service';
 import {ActivatedRoute} from '@angular/router';
 import {WorkTrackerService} from '../../../shared/services/work-tracker/work-tracker.service';
 import {PageEvent} from '@angular/material/paginator';
 import {SearchAdvancedComponent} from '../search-advanced/search-advanced.component';
 import {MatDialog} from '@angular/material/dialog';
+import {AccountService} from '../../../account/services/account/account.service';
 
 @Component({
   selector: 'app-search-results',
@@ -20,8 +21,8 @@ export class SearchResultsComponent implements OnInit {
 
   public pageEvent: PageEvent;
 
-  constructor(private httpClient: HttpClient, private searchService: SearchService, private route: ActivatedRoute,
-              private workTracker: WorkTrackerService, private dialog: MatDialog) {
+  constructor(private httpClient: HttpClient, private searchService: SearchService, private accountService: AccountService,
+              private route: ActivatedRoute, private workTracker: WorkTrackerService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {

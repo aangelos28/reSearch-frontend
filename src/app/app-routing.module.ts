@@ -12,6 +12,7 @@ import {SearchResultsComponent} from './search/components/search-results/search-
 import {EtdDetailsComponent} from './core/components/etd-details/etd-details.component';
 import {MyArticlesComponent} from './article-management/components/my-articles/my-articles.component';
 import {AddArticleComponent} from './article-management/components/add-article/add-article.component';
+import {FavoriteArticlesComponent} from './article-management/components/favorite-articles/favorite-articles.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const redirectLoggedInToMainPage = () => redirectLoggedInTo(['search']);
@@ -32,6 +33,12 @@ const routes: Routes = [
   {
     path: 'my-articles',
     component: MyArticlesComponent,
+    canActivate: [AngularFireAuthGuard, EmailVerificationGuard],
+    data: {authGuardPipe: redirectUnauthorizedToLogin}
+  },
+  {
+    path: 'favorite-articles',
+    component: FavoriteArticlesComponent,
     canActivate: [AngularFireAuthGuard, EmailVerificationGuard],
     data: {authGuardPipe: redirectUnauthorizedToLogin}
   },

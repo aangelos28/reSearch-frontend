@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {SearchService} from '../../../shared/services/search/search.service';
 import {EtdSearchQuery} from '../../../shared/model/etd-model';
 import {MatDialog} from '@angular/material/dialog';
 import {SearchAdvancedComponent} from '../search-advanced/search-advanced.component';
+import {SearchService} from '../../services/search/search.service';
 
 @Component({
   selector: 'app-search-main',

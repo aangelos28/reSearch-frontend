@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {EtdClaimComment} from '../../../shared/model/etd-model';
 import {WorkTrackerService} from '../../../shared/services/work-tracker/work-tracker.service';
+import {AccountService} from '../../../account/services/account/account.service';
 
 interface Reproducible {
   name: string;
@@ -29,7 +30,7 @@ export class EtdClaimCommentContainerComponent implements OnInit {
     {name: 'NO', value: 0}
   ];
 
-  constructor(private httpClient: HttpClient, private workTracker: WorkTrackerService) {
+  constructor(private httpClient: HttpClient, public accountService: AccountService, private workTracker: WorkTrackerService) {
     this.commentsList = [];
   }
 

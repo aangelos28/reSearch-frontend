@@ -1,6 +1,22 @@
 <div class="body-container">
   <div *ngIf="this.etdDetails != undefined" class="etd-details-container">
     <app-back-button></app-back-button>
+
+    <!-- Favorite -->
+    <ng-container *ngIf="(accountService.isLoggedInAndVerified | async)">
+      <br>
+      <ng-container *ngIf="isFavorite === true; else notFavorite">
+        <div class="mt-3 p-2 bg-green-500 inline-block rounded shadow-sm">
+          <h4 class="text-white"><i class="fas fa-star mr-3"></i>Favorite Article</h4>
+        </div>
+      </ng-container>
+      <ng-template #notFavorite>
+        <button class="mt-3 text-white p-2 bg-blue-600 hover:bg-blue-700 text-md rounded shadow-sm transition-colors" (click)="addArticleFavorite()">
+          <i class="fas fa-plus mr-3"></i>Add Favorite
+        </button>
+      </ng-template>
+    </ng-container>
+
     <h2 class="font-bold">{{this.etdDetails.title}}</h2>
     <h4 class="text-gray-500"><span class="font-bold">{{this.etdDetails.contributor_author}}</span></h4>
     <div class="flex flex-row content-between">
@@ -11,7 +27,8 @@
     </div>
     <h4>Department: <span class="text-gray-500">{{this.etdDetails.contributor_department}}</span></h4>
     <h4>Subject(s): <span class="text-gray-500">{{this.etdDetails.subject.join(', ')}}</span></h4>
-    <h4 *ngIf="this.etdDetails.contributor_committeemember">Committee: <span class="text-gray-500">{{this.etdDetails.contributor_committeemember.join(' | ')}}</span></h4>
+    <h4 *ngIf="this.etdDetails.contributor_committeemember">Committee: <span
+      class="text-gray-500">{{this.etdDetails.contributor_committeemember.join(' | ')}}</span></h4>
     <hr class="mt-1 mb-3">
     <p class="text-justify">{{this.etdDetails.description_abstract}}</p>
     <hr class="my-5">

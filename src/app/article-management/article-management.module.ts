@@ -11,11 +11,13 @@ import {MatSelectModule} from '@angular/material/select';
 import {SharedModule} from '../shared/shared.module';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
+import { FavoriteArticlesComponent } from './components/favorite-articles/favorite-articles.component';
 
 @NgModule({
   declarations: [
     MyArticlesComponent,
-    AddArticleComponent
+    AddArticleComponent,
+    FavoriteArticlesComponent
   ],
   imports: [
     CommonModule,

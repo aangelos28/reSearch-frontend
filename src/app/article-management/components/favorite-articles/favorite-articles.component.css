@@ -1,0 +1,17 @@
+.favorite-articles-container {
+  @apply relative pb-10 mx-auto text-left md:w-full text-gray-300 flex flex-col space-y-5;
+  max-width: 1100px;
+  min-height: 1100px;
+}
+
+.article-container-actions {
+  @apply opacity-0 sm:opacity-100 self-center text-xl ml-2 mr-3 sm:mr-1 transition-opacity;
+}
+
+.article-container:hover .article-container-actions {
+  @apply opacity-100 transition-opacity;
+}
+
+.delete-button {
+  @apply text-red-500;
+}

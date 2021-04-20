@@ -1,6 +1,7 @@
 <div class="flex flex-row items-center">
   <h2 class="inline mb-4 flex-grow">Claim Comments</h2>
-  <button *ngIf="!addCommentFormVisible" mat-flat-button color="primary" id="add-comment-button" (click)="showAddCommentForm()">
+  <button *ngIf="(accountService.isLoggedInAndVerified | async) && !addCommentFormVisible" mat-flat-button color="primary" id="add-comment-button"
+          (click)="showAddCommentForm()">
     <i class="fas fa-plus mr-1 pb-0.5"></i>
     Add Comment
   </button>
@@ -12,7 +13,7 @@
     <h3 class="inline flex-grow">Add Comment</h3>
     <button mat-flat-button color="warn" id="close-add-comment-form-button" (click)="hideAddCommentForm()">Close</button>
   </div>
-  <form  class="flex flex-col space-y-4 text-black" [formGroup]="addCommentForm" (ngSubmit)="addClaimComment()">
+  <form class="flex flex-col space-y-4 text-black" [formGroup]="addCommentForm" (ngSubmit)="addClaimComment()">
     <mat-form-field appearance="fill">
       <mat-label>Claim</mat-label>
       <input matInput form formControlName="claim">

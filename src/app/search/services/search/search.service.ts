@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Router, UrlSerializer, UrlTree} from '@angular/router';
-import {EtdSearchQuery} from '../../model/etd-model';
+import {EtdSearchQuery} from '../../../shared/model/etd-model';
 import {NavbarSearchService} from '../../../navigation/services/navbar-search/navbar-search.service';
 
 @Injectable({
@@ -15,6 +15,9 @@ export class SearchService {
     if (this.isQueryEmpty(searchQuery)) {
       return;
     }
+
+    // Clean tags from search query
+    searchQuery.title = searchQuery.title.replace(/<[^>]*>/g, '');
 
     this.navbarSearchService.setQuery(searchQuery.title);
 

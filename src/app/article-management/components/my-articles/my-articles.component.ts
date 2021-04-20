@@ -22,7 +22,7 @@ export class MyArticlesComponent implements OnInit {
 
   public getUserArticles(): void {
     this.workTracker.startWork();
-    this.httpClient.get<EtdEntryMeta[]>('/private/etd/user/all').subscribe(articles => {
+    this.httpClient.get<EtdEntryMeta[]>('/private/etd/user/created').subscribe(articles => {
       this.articlesList = articles.reverse();
       this.workTracker.finishWork();
     }, () => this.workTracker.finishWork());

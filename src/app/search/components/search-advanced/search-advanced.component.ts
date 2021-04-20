@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup} from '@angular/forms';
-import {SearchService} from '../../../shared/services/search/search.service';
 import {EtdSearchQuery} from '../../../shared/model/etd-model';
 import {MatDialogRef} from '@angular/material/dialog';
+import {SearchService} from '../../services/search/search.service';
 
 @Component({
   selector: 'app-search-advanced',
