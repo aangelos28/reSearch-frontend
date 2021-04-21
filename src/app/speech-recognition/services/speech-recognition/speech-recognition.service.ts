@@ -25,30 +25,23 @@ export class SpeechRecognitionService {
     const {webkitSpeechRecognition} = (window as any);
     this.speechRecognition = new webkitSpeechRecognition();
 
-    this.speechRecognition.addEventListener('start', () => {
-      console.log('Initialized speech recognition module.');
-    });
-
     this.speechRecognition.addEventListener('speechend', () => {
       this.speechRecognition.stop();
       this.running = false;
-      console.log('Speech recognition end.');
     });
 
     this.speechRecognition.addEventListener('result', (e: SpeechRecognitionEvent) => {
-      console.log(`Got result: ${e.results[0][0].transcript}`);
       this.result$.next(e.results[0][0].transcript);
       this.confidence$.next(e.results[0][0].confidence);
     });
 
-    this.speechRecognition.addEventListener('nomatch', (e: any) => {
-      this.result$.next('undefined');
+    this.speechRecognition.addEventListener('nomatch', () => {
+      this.result$.next(undefined);
       this.confidence$.next(undefined);
-      console.log(`Speech recognition identified no match: ${e.error}`);
     });
 
     this.speechRecognition.addEventListener('error', (e: any) => {
-      console.log(`There was an error with speech recognition: ${e.error}`);
+      console.error(`There was an error with speech recognition: ${e.error}`);
     });
   }
 
@@ -58,13 +51,11 @@ export class SpeechRecognitionService {
 
     this.speechRecognition.start();
     this.running = true;
-    console.log('Speech recognition start.');
   }
 
   public stopSpeechRecognition(): void {
     this.speechRecognition.stop();
     this.running = false;
-    console.log('Speech recognition end.');
   }
 
   public getResult(): Subject<string> {
