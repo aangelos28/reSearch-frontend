@@ -76,7 +76,7 @@ export class EtdClaimCommentListComponent implements OnInit {
     if (likes >= 0) {
       return `+${likes}`;
     } else {
-      return `${likes}`;
+      return `-${likes}`;
     }
   }
 }

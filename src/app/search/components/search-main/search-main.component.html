@@ -31,6 +31,7 @@
         </button>
       </div>
     </form>
+    <button *ngIf="browserInfoService.onChrome || browserInfoService.onEdge" class="text-xl mt-2 mb-3 focus:outline-none" (click)="openSpeechRecognitionDialog()"><i class="fas fa-microphone"></i></button>
     <br>
     <button mat-button color="accent" class="mx-auto" (click)="openAdvancedSearchDialog()">Advanced Search</button>
   </div>

@@ -1,9 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {EtdSearchQuery} from '../../../shared/model/etd-model';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {SearchAdvancedComponent} from '../search-advanced/search-advanced.component';
 import {SearchService} from '../../services/search/search.service';
+import {SpeechRecognitionService} from '../../../speech-recognition/services/speech-recognition/speech-recognition.service';
+import {SpeechRecognitionDialogComponent} from '../../../speech-recognition/components/speech-recognition-dialog/speech-recognition-dialog.component';
+import {BrowserInfoService} from '../../../shared/services/browser-info/browser-info.service';
 
 @Component({
   selector: 'app-search-main',
@@ -14,7 +17,8 @@ export class SearchMainComponent implements OnInit {
 
   public searchForm: FormGroup;
 
-  constructor(private searchService: SearchService, private dialog: MatDialog) {
+  constructor(private searchService: SearchService, private speechRecognitionService: SpeechRecognitionService,
+              public browserInfoService: BrowserInfoService, private dialog: MatDialog) {
     // Empty
   }
 
@@ -57,5 +61,18 @@ export class SearchMainComponent implements OnInit {
    */
   public openAdvancedSearchDialog(): void {
     this.dialog.open(SearchAdvancedComponent);
+  }
+
+  /**
+   * Opens the speech recognition dialog.
+   */
+  public openSpeechRecognitionDialog(): void {
+    const speechRecognitionDialog: MatDialogRef<SpeechRecognitionDialogComponent> = this.dialog.open(SpeechRecognitionDialogComponent);
+    speechRecognitionDialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.searchText.setValue(result);
+        this.performSearch();
+      }
+    });
   }
 }

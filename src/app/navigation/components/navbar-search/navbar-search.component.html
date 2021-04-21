@@ -7,3 +7,4 @@
     <i class="fas fa-long-arrow-alt-right search-button-icon"></i>
   </button>
 </form>
+<button *ngIf="browserInfoService.onChrome || browserInfoService.onEdge" class="text-md sm:text-sm mt-2 mb-3 mr-2 focus:outline-none" (click)="openSpeechRecognitionDialog()"><i class="fas fa-microphone"></i></button>

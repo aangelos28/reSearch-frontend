@@ -3,6 +3,9 @@ import {AbstractControl, FormGroup} from '@angular/forms';
 import {EtdSearchQuery} from '../../../shared/model/etd-model';
 import {NavbarSearchService} from '../../services/navbar-search/navbar-search.service';
 import {SearchService} from '../../../search/services/search/search.service';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {SpeechRecognitionDialogComponent} from '../../../speech-recognition/components/speech-recognition-dialog/speech-recognition-dialog.component';
+import {BrowserInfoService} from '../../../shared/services/browser-info/browser-info.service';
 
 @Component({
   selector: 'app-navbar-search',
@@ -13,7 +16,8 @@ export class NavbarSearchComponent implements OnInit {
 
   public searchForm: FormGroup;
 
-  constructor(private searchService: SearchService, private navbarSearchService: NavbarSearchService) {
+  constructor(private searchService: SearchService, private navbarSearchService: NavbarSearchService,
+              public browserInfoService: BrowserInfoService, private dialog: MatDialog) {
     // Empty
   }
 
@@ -47,5 +51,15 @@ export class NavbarSearchComponent implements OnInit {
    */
   public searchQueryEmpty(): boolean {
     return this.searchText.value === '';
+  }
+
+  public openSpeechRecognitionDialog(): void {
+    const speechRecognitionDialog: MatDialogRef<SpeechRecognitionDialogComponent> = this.dialog.open(SpeechRecognitionDialogComponent);
+    speechRecognitionDialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.searchText.setValue(result);
+        this.performSearch();
+      }
+    });
   }
 }
